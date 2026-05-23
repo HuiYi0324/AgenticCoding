@@ -1,0 +1,2304 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HuiYi0324 | GitHub Agentic Hub (Supabase Dynamic)</title>
+    <meta name="description" content="HuiYi0324 的 GitHub 個人介紹與精選開源儲存庫展示，基於 Supabase 雲端資料庫動態加載，採用 UI-UX Pro Max 淺色極簡專業美學。">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ----------------------------------
+           1. 設計系統與核心變數 (Light Professional + Supabase Purple)
+           ---------------------------------- */
+        :root {
+            --bg-color: #f8fafc;       /* Slate 50 專業清爽底色 */
+            --bg-grid: rgba(99, 102, 241, 0.015);
+            --bg-dot: rgba(99, 102, 241, 0.025);
+            
+            /* 淺色高雅毛玻璃卡片 */
+            --glass-bg: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(15, 23, 42, 0.06);
+            --glass-border-hover: rgba(99, 102, 241, 0.25);
+            --glass-shadow: 0 20px 40px rgba(15, 23, 42, 0.04);
+            --glass-inner-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.6);
+            
+            /* 色彩系統 (新增 Supabase 科技綠/深紫配色) */
+            --primary: #3ecf8e;          /* Supabase 經典科技綠 */
+            --primary-rgb: 62, 207, 142;
+            --secondary: #0891b2;        /* 商務青綠 */
+            --accent: #4f46e5;           /* 專業靛藍 */
+            --accent-rgb: 79, 70, 229;
+            --rose: #e11d48;             /* 烈焰玫瑰紅 */
+            --success: #10b981;          /* 科技活耀綠 */
+            --warning: #d97706;          /* 琥珀橘黃 */
+            
+            /* 文字色彩層次 */
+            --text-primary: #0f172a;     /* 深 Slate 900 */
+            --text-secondary: #475569;   /* 中 Slate 600 */
+            --text-muted: #94a3b8;       /* 淺 Slate 400 */
+            
+            /* 高階字型 */
+            --font-title: 'Outfit', 'Space Grotesk', sans-serif;
+            --font-main: 'Plus Jakarta Sans', sans-serif;
+            --font-mono: 'Fira Code', monospace;
+            
+            /* 頂級絲滑過渡曲線 */
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* ----------------------------------
+           2. 基礎重設與高質感淺色光影背景
+           ---------------------------------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: var(--font-main);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* 莫蘭迪柔和流光背景 */
+        .aurora-bg {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            z-index: -2;
+            overflow: hidden;
+            pointer-events: none;
+            filter: blur(140px);
+            opacity: 0.6;
+        }
+
+        .aurora-blob {
+            position: absolute;
+            border-radius: 50%;
+            animation: aurora-flow 25s infinite alternate ease-in-out;
+        }
+
+        .blob-green {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(62, 207, 142, 0.08) 0%, rgba(62, 207, 142, 0) 70%);
+            top: -10%;
+            left: -5%;
+        }
+
+        .blob-cyan {
+            width: 550px;
+            height: 550px;
+            background: radial-gradient(circle, rgba(8, 145, 178, 0.05) 0%, rgba(8, 145, 178, 0) 70%);
+            bottom: -15%;
+            right: -5%;
+            animation-delay: -5s;
+            animation-duration: 30s;
+        }
+
+        .blob-indigo {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(79, 70, 229, 0.06) 0%, rgba(79, 70, 229, 0) 70%);
+            top: 35%;
+            left: 45%;
+            animation-delay: -10s;
+            animation-duration: 22s;
+        }
+
+        @keyframes aurora-flow {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            33% { transform: translate(40px, 60px) scale(1.08) rotate(120deg); }
+            66% { transform: translate(-30px, 40px) scale(0.96) rotate(240deg); }
+            100% { transform: translate(20px, -30px) scale(1.04) rotate(360deg); }
+        }
+
+        /* 雙層紋理背景 */
+        .bg-overlays {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .grid-mesh {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(var(--bg-grid) 1px, transparent 1px),
+                linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .dot-matrix {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(var(--bg-dot) 1.5px, transparent 1.5px);
+            background-size: 30px 30px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 4rem;
+        }
+
+        /* ----------------------------------
+           3. 淺色專業毛玻璃卡片
+           ---------------------------------- */
+        .profile-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 3rem;
+            width: 100%;
+            max-width: 950px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: var(--glass-shadow);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.8rem;
+            transition: var(--transition-smooth);
+        }
+
+        .glow-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(
+                500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                rgba(62, 207, 142, 0.05),
+                transparent 45%
+            );
+            z-index: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+
+        .profile-card:hover {
+            border-color: rgba(62, 207, 142, 0.25);
+            box-shadow: 0 30px 60px rgba(62, 207, 142, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* 3D 頭像光環 */
+        .avatar-wrapper {
+            position: relative;
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            z-index: 1;
+            padding: 3px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            box-shadow: 0 0 25px rgba(62, 207, 142, 0.15);
+            animation: pulse-glow 3s infinite alternate ease-in-out;
+        }
+
+        .avatar-wrapper::after {
+            content: '';
+            position: absolute;
+            top: -1px; left: -1px; right: -1px; bottom: -1px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            z-index: -1;
+            filter: blur(6px);
+            opacity: 0.6;
+            animation: rotate-gradient 6s infinite linear;
+        }
+
+        .profile-avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #ffffff;
+            border: 4px solid #ffffff;
+        }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 15px rgba(62, 207, 142, 0.15); }
+            100% { box-shadow: 0 0 25px rgba(79, 70, 229, 0.25); }
+        }
+
+        @keyframes rotate-gradient {
+            100% { transform: rotate(360deg); }
+        }
+
+        /* 資料庫連線狀態指示徽章 */
+        .status-badge {
+            background: rgba(148, 163, 184, 0.06);
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            border-radius: 50px;
+            padding: 0.35rem 1.1rem;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.3rem;
+            z-index: 1;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .status-badge:hover {
+            background: rgba(99, 102, 241, 0.06);
+            border-color: rgba(99, 102, 241, 0.2);
+            color: var(--accent);
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background-color: var(--text-muted);
+            box-shadow: 0 0 8px var(--text-muted);
+        }
+
+        .status-badge.connected {
+            background: rgba(62, 207, 142, 0.06);
+            border-color: rgba(62, 207, 142, 0.2);
+            color: var(--primary);
+        }
+
+        .status-badge.connected .status-dot {
+            background-color: var(--primary);
+            box-shadow: 0 0 8px var(--primary);
+            animation: dot-pulse 1.5s infinite alternate ease-in-out;
+        }
+
+        @keyframes dot-pulse {
+            0% { transform: scale(0.9); opacity: 0.7; }
+            100% { transform: scale(1.1); opacity: 1; }
+        }
+
+        /* 個人文字資訊 */
+        .profile-content {
+            text-align: center;
+            z-index: 1;
+        }
+
+        .profile-name {
+            font-family: var(--font-title);
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, #0f172a 40%, #334155 70%, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.3rem;
+        }
+
+        .profile-title {
+            font-family: var(--font-mono);
+            font-size: 1.05rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            min-height: 2rem;
+            font-weight: 600;
+        }
+
+        .type-cursor {
+            display: inline-block;
+            width: 7px;
+            height: 18px;
+            background-color: var(--accent);
+            animation: blink 0.8s infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .profile-bio {
+            color: var(--text-secondary);
+            max-width: 650px;
+            font-size: 0.98rem;
+            margin: 0 auto 1.5rem;
+            font-family: var(--font-main);
+            font-weight: 400;
+            line-height: 1.65;
+        }
+
+        .profile-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-premium {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.65rem 1.4rem;
+            background: #ffffff;
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            border-radius: 50px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-family: var(--font-title);
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-premium::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(62, 207, 142, 0.06), transparent);
+            transition: 0.5s;
+        }
+
+        .btn-premium:hover::before {
+            left: 100%;
+            transition: 0.6s ease-in-out;
+        }
+
+        .btn-premium:hover {
+            border-color: rgba(62, 207, 142, 0.25);
+            color: #ffffff;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            box-shadow: 0 8px 20px rgba(62, 207, 142, 0.15);
+            transform: translateY(-1px);
+        }
+
+        /* 統計玻璃窗 */
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.2rem;
+            width: 100%;
+            max-width: 600px;
+            margin-top: 0.8rem;
+            z-index: 1;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(15, 23, 42, 0.04);
+            border-radius: 16px;
+            padding: 1rem;
+            text-align: center;
+            transition: var(--transition-smooth);
+            backdrop-filter: blur(8px);
+        }
+
+        .stat-card:hover {
+            background: rgba(255, 255, 255, 0.8);
+            border-color: rgba(62, 207, 142, 0.15);
+            transform: translateY(-1px);
+        }
+
+        .stat-value {
+            font-family: var(--font-title);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            background: linear-gradient(to bottom, #0f172a, #334155);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-top: 0.15rem;
+            font-family: var(--font-title);
+            font-weight: 600;
+        }
+
+        /* ----------------------------------
+           4. 雙欄佈局：UI-UX Pro Max 與 3D 技術棧
+           ---------------------------------- */
+        .double-column-section {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .skill-hub-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: var(--glass-shadow);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            transition: var(--transition-smooth);
+        }
+
+        .skill-hub-card:hover {
+            border-color: var(--glass-border-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(15, 23, 42, 0.05);
+        }
+
+        .badge-premium-ai {
+            align-self: flex-start;
+            background: rgba(62, 207, 142, 0.05);
+            border: 1px solid rgba(62, 207, 142, 0.18);
+            border-radius: 50px;
+            padding: 0.3rem 0.8rem;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--primary);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-weight: 600;
+        }
+
+        .hub-title {
+            font-family: var(--font-title);
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+
+        .hub-desc {
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+            line-height: 1.6;
+        }
+
+        .metrics-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.8rem;
+            margin-top: 0.2rem;
+        }
+
+        .metric-gauge-card {
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(15, 23, 42, 0.02);
+            border-radius: 14px;
+            padding: 0.8rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .gauge-circle {
+            position: relative;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: conic-gradient(var(--accent) calc(var(--percent) * 1%), rgba(15,23,42,0.03) 0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gauge-circle::before {
+            content: '';
+            position: absolute;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #ffffff;
+        }
+
+        .gauge-value {
+            position: relative;
+            z-index: 1;
+            font-family: var(--font-title);
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .gauge-label {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            font-family: var(--font-title);
+            font-weight: 600;
+        }
+
+        /* 3D 技術棧 */
+        .tech-stack-section {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: var(--glass-shadow);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            transition: var(--transition-smooth);
+        }
+
+        .tech-stack-section:hover {
+            border-color: var(--glass-border-hover);
+            transform: translateY(-2px);
+        }
+
+        .stack-title {
+            font-family: var(--font-title);
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stack-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.6rem;
+        }
+
+        .stack-item-3d {
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(15, 23, 42, 0.03);
+            border-radius: 12px;
+            padding: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .stack-item-3d:hover {
+            border-color: rgba(var(--theme-color-rgb), 0.3);
+            background: rgba(var(--theme-color-rgb), 0.03);
+            box-shadow: 0 6px 15px rgba(var(--theme-color-rgb), 0.06);
+            transform: translateY(-1px);
+        }
+
+        .stack-icon {
+            font-size: 1.3rem;
+            color: rgb(var(--theme-color-rgb));
+            transition: var(--transition-smooth);
+        }
+
+        .stack-item-3d:hover .stack-icon {
+            transform: scale(1.08);
+        }
+
+        .stack-item-name {
+            font-family: var(--font-title);
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* ----------------------------------
+           5. 互動式 UI-UX Pro Max 設計智慧搜尋區
+           ---------------------------------- */
+        .interactive-design-center {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 22px;
+            padding: 2.2rem;
+            margin-bottom: 4rem;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: var(--glass-shadow);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+        }
+
+        .interactive-design-center:hover {
+            border-color: rgba(62, 207, 142, 0.15);
+            box-shadow: 0 25px 50px rgba(15, 23, 42, 0.05);
+        }
+
+        .design-center-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .design-center-badge {
+            background: rgba(62, 207, 142, 0.05);
+            border: 1px solid rgba(62, 207, 142, 0.2);
+            border-radius: 50px;
+            padding: 0.3rem 0.9rem;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--primary);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-weight: 600;
+        }
+
+        .design-search-suggest {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.7rem;
+            align-items: center;
+        }
+
+        .suggest-label {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            font-family: var(--font-title);
+            font-weight: 500;
+        }
+
+        .suggest-tag {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(15, 23, 42, 0.04);
+            border-radius: 50px;
+            padding: 0.2rem 0.8rem;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-family: var(--font-mono);
+            transition: var(--transition-smooth);
+        }
+
+        .suggest-tag:hover {
+            background: rgba(62, 207, 142, 0.05);
+            border-color: rgba(62, 207, 142, 0.2);
+            color: var(--primary);
+            transform: translateY(-1px);
+        }
+
+        .search-results-panel {
+            margin-top: 1.5rem;
+            min-height: 180px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.2rem;
+        }
+
+        .design-style-card {
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(15, 23, 42, 0.03);
+            border-radius: 18px;
+            padding: 1.5rem;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 1.8rem;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .style-card-left {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .style-card-right {
+            border-left: 1px solid rgba(15, 23, 42, 0.06);
+            padding-left: 1.8rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .style-name {
+            font-family: var(--font-title);
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .style-meta-item {
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        .style-meta-label {
+            font-family: var(--font-title);
+            font-weight: 700;
+            color: var(--text-secondary);
+            margin-bottom: 0.2rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .style-meta-content {
+            color: var(--text-secondary);
+        }
+
+        .color-bubble-row {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+            margin-top: 0.2rem;
+        }
+
+        .color-bubble {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: #ffffff;
+            border: 1px solid rgba(15, 23, 42, 0.05);
+            border-radius: 50px;
+            padding: 0.15rem 0.5rem;
+            font-size: 0.72rem;
+            font-family: var(--font-mono);
+            color: var(--text-primary);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+        }
+
+        .color-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .code-snippet-box {
+            background: rgba(15, 23, 42, 0.02);
+            border: 1px solid rgba(15, 23, 42, 0.05);
+            border-radius: 10px;
+            padding: 0.85rem;
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--accent);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .code-text {
+            word-break: break-all;
+            white-space: pre-wrap;
+            line-height: 1.5;
+            padding-right: 1.2rem;
+        }
+
+        .code-copy-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-size: 0.9rem;
+        }
+
+        .code-copy-btn:hover {
+            color: var(--accent);
+            transform: scale(1.08);
+        }
+
+        /* UX 指南 */
+        .ux-wisdom-panel {
+            background: rgba(217, 119, 6, 0.02);
+            border: 1px dashed rgba(217, 119, 6, 0.2);
+            border-radius: 16px;
+            padding: 1.25rem;
+            margin-top: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .ux-wisdom-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ux-wisdom-title {
+            font-family: var(--font-title);
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--warning);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .ux-wisdom-body {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .ux-wisdom-refresh {
+            background: none;
+            border: none;
+            color: var(--warning);
+            cursor: pointer;
+            font-family: var(--font-title);
+            font-size: 0.78rem;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+        }
+
+        .ux-wisdom-refresh:hover {
+            color: var(--text-primary);
+            transform: rotate(180deg);
+        }
+
+        /* ----------------------------------
+           6. 篩選與排序控制面板 (Interactive Controls)
+           ---------------------------------- */
+        .controls-section {
+            width: 100%;
+            margin-top: 3rem;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-title {
+            font-family: var(--font-title);
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            position: relative;
+            display: inline-block;
+            margin-bottom: 0.4rem;
+            background: linear-gradient(135deg, #0f172a, #334155);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            border-radius: 2px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+
+        .search-filter-hub {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+            width: 100%;
+            max-width: 750px;
+            margin-top: 0.8rem;
+        }
+
+        .search-box-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-input {
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            border-radius: 50px;
+            padding: 0.8rem 1.5rem 0.8rem 2.8rem;
+            font-family: var(--font-main);
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            outline: none;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.02);
+            transition: var(--transition-smooth);
+        }
+
+        .search-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(62, 207, 142, 0.15);
+            background: #ffffff;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1.1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            pointer-events: none;
+            transition: var(--transition-smooth);
+        }
+
+        .search-input:focus + .search-icon {
+            color: var(--primary);
+        }
+
+        .filter-tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(15, 23, 42, 0.05);
+            color: var(--text-secondary);
+            padding: 0.45rem 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: var(--font-title);
+            font-weight: 600;
+            font-size: 0.82rem;
+            transition: var(--transition-smooth);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.01);
+        }
+
+        .filter-btn:hover {
+            background: #ffffff;
+            border-color: rgba(15, 23, 42, 0.12);
+            color: var(--text-primary);
+            transform: translateY(-1px);
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-color: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            box-shadow: 0 6px 15px rgba(62, 207, 142, 0.15);
+        }
+
+        /* ----------------------------------
+           7. 精選儲存庫卡片網格 (Repos Grid)
+           ---------------------------------- */
+        .repos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.5rem;
+            width: 100%;
+            min-height: 320px;
+        }
+
+        .repo-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 1.8rem;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: var(--glass-shadow);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                        border-color 0.3s ease, 
+                        box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .repo-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(
+                350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                rgba(62, 207, 142, 0.04),
+                transparent 45%
+            );
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .repo-card:hover::before {
+            opacity: 1;
+        }
+
+        .repo-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(62, 207, 142, 0.25);
+            box-shadow: 0 15px 30px rgba(15, 23, 42, 0.04);
+        }
+
+        .repo-header {
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .repo-icon-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.85rem;
+        }
+
+        .repo-folder-icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+            transition: var(--transition-smooth);
+        }
+
+        .repo-card:hover .repo-folder-icon {
+            color: var(--accent);
+            transform: scale(1.08) rotate(-4deg);
+        }
+
+        .repo-github-link {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            transition: var(--transition-smooth);
+        }
+
+        .repo-github-link:hover {
+            color: var(--text-primary);
+            transform: scale(1.1);
+        }
+
+        .repo-title {
+            font-family: var(--font-title);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.01em;
+            transition: var(--transition-smooth);
+        }
+
+        .repo-card:hover .repo-title {
+            color: var(--primary);
+        }
+
+        .repo-desc {
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+            line-height: 1.55;
+            margin-bottom: 0.85rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            min-height: 4.1rem;
+        }
+
+        .repo-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 0.95rem;
+            border-top: 1px solid rgba(15, 23, 42, 0.04);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            position: relative;
+            z-index: 1;
+        }
+
+        .repo-lang {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .lang-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .lang-jupyter { background-color: #DA5B0B; }
+        .lang-javascript { background-color: #f1e05a; }
+        .lang-html { background-color: #e34c26; }
+        .lang-css { background-color: #563d7c; }
+        .lang-python { background-color: #3572A5; }
+        .lang-unknown { background-color: #64748b; }
+
+        .repo-stats-group {
+            display: flex;
+            gap: 0.85rem;
+        }
+
+        .repo-stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            transition: var(--transition-smooth);
+        }
+
+        .repo-card:hover .repo-stat-item.star-stat { color: #d97706; }
+        .repo-card:hover .repo-stat-item.fork-stat { color: var(--primary); }
+
+        .repo-date {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-top: 0.65rem;
+            text-align: right;
+            position: relative;
+            z-index: 1;
+            font-family: var(--font-mono);
+        }
+
+        .no-results {
+            grid-column: 1 / -1;
+            background: rgba(255, 255, 255, 0.3);
+            border: 1px dashed rgba(15, 23, 42, 0.06);
+            border-radius: 16px;
+            padding: 2.5rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-family: var(--font-title);
+            font-size: 1rem;
+            display: none;
+        }
+
+        /* ----------------------------------
+           8. Supabase 憑證設定抽屜 (Settings Drawer)
+           ---------------------------------- */
+        .drawer-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: rgba(15, 23, 42, 0.15);
+            backdrop-filter: blur(4px);
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .drawer-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .settings-drawer {
+            position: fixed;
+            top: 0; right: -400px;
+            width: 100%;
+            max-width: 400px;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.95);
+            border-left: 1px solid rgba(15, 23, 42, 0.08);
+            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(24px);
+            z-index: 101;
+            padding: 2.5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .settings-drawer.active {
+            right: 0;
+        }
+
+        .drawer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+            padding-bottom: 1rem;
+        }
+
+        .drawer-title {
+            font-family: var(--font-title);
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .drawer-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 1.25rem;
+            transition: var(--transition-smooth);
+        }
+
+        .drawer-close:hover {
+            color: var(--rose);
+            transform: rotate(90deg);
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .input-label {
+            font-family: var(--font-title);
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .drawer-input {
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid rgba(15, 23, 42, 0.1);
+            border-radius: 10px;
+            padding: 0.65rem 1rem;
+            font-family: var(--font-main);
+            font-size: 0.88rem;
+            color: var(--text-primary);
+            outline: none;
+            transition: var(--transition-smooth);
+        }
+
+        .drawer-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(62, 207, 142, 0.15);
+        }
+
+        .btn-drawer-save {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 10px;
+            color: #ffffff;
+            padding: 0.75rem;
+            font-family: var(--font-title);
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(62, 207, 142, 0.2);
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-drawer-save:hover {
+            box-shadow: 0 6px 20px rgba(62, 207, 142, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .btn-drawer-fetch-env {
+            width: 100%;
+            background: #ffffff;
+            border: 1px dashed rgba(62, 207, 142, 0.4);
+            border-radius: 10px;
+            color: var(--primary);
+            padding: 0.65rem;
+            font-family: var(--font-title);
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .btn-drawer-fetch-env:hover {
+            background: rgba(62, 207, 142, 0.05);
+            border-style: solid;
+        }
+
+        .connection-status-panel {
+            background: rgba(148, 163, 184, 0.03);
+            border: 1px solid rgba(15, 23, 42, 0.04);
+            border-radius: 12px;
+            padding: 0.85rem 1rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* 頁尾 */
+        footer {
+            margin-top: 5rem;
+            padding: 2rem 0;
+            border-top: 1px solid rgba(15, 23, 42, 0.03);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.82rem;
+        }
+
+        footer p { margin-bottom: 0.3rem; }
+        footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
+        footer a:hover { color: var(--text-primary); }
+
+        @media (max-width: 992px) {
+            .double-column-section { grid-template-columns: 1fr; }
+            .design-style-card { grid-template-columns: 1fr; gap: 1.2rem; }
+            .style-card-right { border-left: none; border-top: 1px solid rgba(15, 23, 42, 0.06); padding-left: 0; padding-top: 1.2rem; }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 2rem 1rem; }
+            .profile-card { padding: 1.8rem 1.2rem; }
+            .profile-name { font-size: 2.1rem; }
+            .profile-stats { grid-template-columns: 1fr; gap: 0.6rem; }
+            .repos-grid { grid-template-columns: 1fr; }
+            .btn-premium { width: 100%; justify-content: center; }
+            .profile-buttons { flex-direction: column; width: 100%; }
+        }
+
+        .animate-fade-in { animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .delay-1 { animation-delay: 0.15s; }
+        .delay-2 { animation-delay: 0.3s; }
+        .delay-3 { animation-delay: 0.45s; }
+    </style>
+</head>
+<body>
+
+    <!-- 多層背景 -->
+    <div class="aurora-bg">
+        <div class="aurora-blob blob-green"></div>
+        <div class="aurora-blob blob-cyan"></div>
+        <div class="aurora-blob blob-indigo"></div>
+    </div>
+    <div class="bg-overlays">
+        <div class="grid-mesh"></div>
+        <div class="dot-matrix"></div>
+    </div>
+
+    <div class="container">
+        
+        <!-- 頂部：個人簡介卡片 -->
+        <header class="animate-fade-in">
+            <div class="profile-card" id="main-profile-card">
+                <div class="glow-overlay"></div>
+                
+                <!-- 資料庫連線狀態徽章 (點擊可開啟設定抽屜) -->
+                <div class="status-badge" id="conn-status-badge" onclick="toggleDrawer(true)">
+                    <span class="status-dot"></span>
+                    <span id="conn-status-text">DATABASE DISCONNECTED</span>
+                </div>
+                
+                <!-- 3D 頭像光環 -->
+                <div class="avatar-wrapper">
+                    <img id="avatar" class="profile-avatar" src="https://avatars.githubusercontent.com/u/127393437?v=4" alt="HuiYi0324 Avatar">
+                </div>
+                
+                <!-- 個人資料內容 -->
+                <div class="profile-content">
+                    <h1 id="name" class="profile-name">HuiYi0324</h1>
+                    <div class="profile-title">
+                        <span id="typed-text"></span><span class="type-cursor"></span>
+                    </div>
+                    <p id="bio" class="profile-bio">熱衷於人工智慧 (AI)、機器學習 (Machine Learning) 與智慧 Agent 自動化開發。致力於探索技術的邊界，將創意轉化為實體代碼。</p>
+                    
+                    <div class="profile-buttons">
+                        <a href="https://github.com/HuiYi0324" target="_blank" class="btn-premium">
+                            <i class="fab fa-github"></i> 探索 GitHub 個人主頁
+                        </a>
+                        <a href="https://github.com/HuiYi0324/AgenticCoding" target="_blank" class="btn-premium">
+                            <i class="fas fa-network-wired"></i> 訪問本儲存庫
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 數據玻璃卡片 -->
+                <div class="profile-stats">
+                    <div class="stat-card">
+                        <div id="stat-repos" class="stat-value">6</div>
+                        <div class="stat-label">公開儲存庫</div>
+                    </div>
+                    <div class="stat-card">
+                        <div id="stat-followers" class="stat-value">12</div>
+                        <div class="stat-label">關注者</div>
+                    </div>
+                    <div class="stat-card">
+                        <div id="stat-following" class="stat-value">24</div>
+                        <div class="stat-label">關注中</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- 雙欄排版 -->
+        <section class="double-column-section animate-fade-in delay-1">
+            
+            <!-- (左欄) UI-UX Pro Max 簡介 -->
+            <div class="skill-hub-card" id="ui-ux-hub-card">
+                <div class="glow-overlay"></div>
+                <div class="badge-premium-ai">
+                    <i class="fas fa-wand-magic-sparkles"></i>
+                    <span>UI-UX PRO MAX OPTIMIZED</span>
+                </div>
+                <h3 class="hub-title">AI 設計智庫中樞</h3>
+                <p class="hub-desc">
+                    本網頁之設計已全面融入 **UI-UX Pro Max** 設計智慧，採用 **專業極簡毛玻璃擬態 (Glassmorphism)**、**明亮商務優雅 UI** 與 **微互動控制** 之黃金比例，打造舒適雅緻的視覺饗宴。
+                </p>
+                
+                <div class="metrics-row">
+                    <div class="metric-gauge-card">
+                        <div class="gauge-circle" style="--percent: 98;">
+                            <span class="gauge-value">98%</span>
+                        </div>
+                        <span class="gauge-label">視覺衝擊</span>
+                    </div>
+                    <div class="metric-gauge-card">
+                        <div class="gauge-circle" style="--percent: 95;">
+                            <span class="gauge-value">95%</span>
+                        </div>
+                        <span class="gauge-label">使用者體驗</span>
+                    </div>
+                    <div class="metric-gauge-card">
+                        <div class="gauge-circle" style="--percent: 96;">
+                            <span class="gauge-value">96%</span>
+                        </div>
+                        <span class="gauge-label">動態流暢</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- (右欄) 3D 技術棧磁貼 -->
+            <div class="tech-stack-section">
+                <h3 class="stack-title">
+                    <i class="fas fa-terminal" style="color: var(--secondary);"></i>
+                    <span>高階技術棧</span>
+                </h3>
+                <div class="stack-grid">
+                    <div class="stack-item-3d" style="--theme-color-rgb: 79, 70, 229;">
+                        <i class="fab fa-python stack-icon"></i>
+                        <span class="stack-item-name">Python & ML</span>
+                    </div>
+                    <div class="stack-item-3d" style="--theme-color-rgb: 220, 38, 38;">
+                        <i class="fas fa-brain stack-icon"></i>
+                        <span class="stack-item-name">PyTorch</span>
+                    </div>
+                    <div class="stack-item-3d" style="--theme-color-rgb: 217, 119, 6;">
+                        <i class="fab fa-js stack-icon"></i>
+                        <span class="stack-item-name">JavaScript</span>
+                    </div>
+                    <div class="stack-item-3d" style="--theme-color-rgb: 227, 76, 38;">
+                        <i class="fab fa-html5 stack-icon"></i>
+                        <span class="stack-item-name">HTML5 / CSS3</span>
+                    </div>
+                    <div class="stack-item-3d" style="--theme-color-rgb: 124, 58, 237;">
+                        <i class="fas fa-robot stack-icon"></i>
+                        <span class="stack-item-name">AI Agents</span>
+                    </div>
+                    <div class="stack-item-3d" style="--theme-color-rgb: 8, 145, 178;">
+                        <i class="fas fa-code-branch stack-icon"></i>
+                        <span class="stack-item-name">Git Workflows</span>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- 亮點中樞：UI-UX Pro Max 互動式設計智慧搜尋引擎 -->
+        <section class="interactive-design-center animate-fade-in delay-2">
+            <div class="glow-overlay"></div>
+            
+            <div class="design-center-header">
+                <div class="design-center-badge">
+                    <i class="fas fa-search-nodes"></i>
+                    <span>UI-UX PRO MAX REAL-TIME ENGINE</span>
+                </div>
+                <h3 class="hub-title" style="margin: 0;">UI/UX 頂級設計智慧搜尋器</h3>
+            </div>
+            
+            <p class="hub-desc" style="margin-bottom: 1.2rem;">
+                這是一個基於 `ui-ux-pro-max-skill` 原生 CSV 資料庫驅動的前端搜尋中樞。您可以輸入各類 UI 設計風格，系統將實時向您呈現其設計變數、AI Prompt、最佳實踐與 CSS 代碼！
+            </p>
+
+            <!-- 搜尋與熱門推薦區 -->
+            <div class="search-box-wrapper" style="margin-bottom: 0.8rem;">
+                <input type="text" class="search-input" id="design-search-input" placeholder="嘗試輸入風格名稱，例如 glassmorphism, minimalism, neumorphism, brutalism...">
+                <i class="fas fa-terminal search-icon" style="color: var(--primary);"></i>
+            </div>
+            
+            <div class="design-search-suggest">
+                <span class="suggest-label"><i class="fas fa-fire"></i> 熱門查詢：</span>
+                <span class="suggest-tag" onclick="triggerDesignSearch('Glassmorphism')">Glassmorphism</span>
+                <span class="suggest-tag" onclick="triggerDesignSearch('Minimalism')">Minimalism</span>
+                <span class="suggest-tag" onclick="triggerDesignSearch('Neumorphism')">Neumorphism</span>
+                <span class="suggest-tag" onclick="triggerDesignSearch('Brutalism')">Brutalism</span>
+            </div>
+
+            <!-- 搜尋結果展示區 -->
+            <div class="search-results-panel" id="design-results-panel">
+                <!-- 預設顯示初始卡片 -->
+            </div>
+
+            <!-- UX 原則隨機小語 -->
+            <div class="ux-wisdom-panel">
+                <div class="ux-wisdom-header">
+                    <div class="ux-wisdom-title">
+                        <i class="fas fa-circle-exclamation"></i>
+                        <span>UX 金律與反模式防錯智慧</span>
+                    </div>
+                    <button class="ux-wisdom-refresh" onclick="getRandomUxWisdom()">
+                        <i class="fas fa-arrows-rotate"></i> 隨機換一條
+                    </button>
+                </div>
+                <div class="ux-wisdom-body" id="ux-wisdom-content">
+                    載入設計指南智慧中...
+                </div>
+            </div>
+        </section>
+
+        <!-- 儲存庫介紹與搜尋區塊 -->
+        <main class="animate-fade-in delay-2">
+            
+            <!-- 搜尋與篩選中樞 -->
+            <div class="controls-section">
+                <h2 class="section-title">精選開源專案 (Supabase 動態加載)</h2>
+                
+                <div class="search-filter-hub">
+                    <!-- 搜尋框 -->
+                    <div class="search-box-wrapper">
+                        <input type="text" class="search-input" id="search-input" placeholder="動態檢索 Supabase 專案名稱、描述或技術特徵...">
+                        <i class="fas fa-magnifying-glass search-icon"></i>
+                    </div>
+                    
+                    <!-- 動態語言分類標籤 -->
+                    <div class="filter-tags" id="filter-container">
+                        <!-- 由動態加載的資料即時產生標籤 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 卡片動態容器 -->
+            <div class="repos-grid" id="repos-grid">
+                <div class="no-results" id="no-results-card">
+                    <i class="fas fa-folder-open" style="font-size: 2rem; color: var(--text-muted); margin-bottom: 0.8rem; display: block;"></i>
+                    沒有找到符合搜尋條件的儲存庫
+                </div>
+                
+                <!-- 載入中骨架屏動畫 (Loading Skeleton) -->
+                <div class="repo-card skeleton-card" id="skeleton-loader-1" style="min-height: 250px; background: rgba(255,255,255,0.4); border-color: rgba(0,0,0,0.03);">
+                    <div style="width: 100%; display: flex; flex-direction: column; gap: 1rem;">
+                        <div style="width: 40px; height: 40px; border-radius: 8px; background: rgba(148,163,184,0.15); animation: pulse 1.5s infinite;"></div>
+                        <div style="width: 60%; height: 20px; border-radius: 4px; background: rgba(148,163,184,0.15); animation: pulse 1.5s infinite;"></div>
+                        <div style="width: 90%; height: 60px; border-radius: 8px; background: rgba(148,163,184,0.1); animation: pulse 1.5s infinite;"></div>
+                    </div>
+                </div>
+                <div class="repo-card skeleton-card" id="skeleton-loader-2" style="min-height: 250px; background: rgba(255,255,255,0.4); border-color: rgba(0,0,0,0.03);">
+                    <div style="width: 100%; display: flex; flex-direction: column; gap: 1rem;">
+                        <div style="width: 40px; height: 40px; border-radius: 8px; background: rgba(148,163,184,0.15); animation: pulse 1.5s infinite;"></div>
+                        <div style="width: 60%; height: 20px; border-radius: 4px; background: rgba(148,163,184,0.15); animation: pulse 1.5s infinite;"></div>
+                        <div style="width: 90%; height: 60px; border-radius: 8px; background: rgba(148,163,184,0.1); animation: pulse 1.5s infinite;"></div>
+                    </div>
+                </div>
+            </div>
+            
+        </main>
+
+        <!-- 頁尾 -->
+        <footer class="animate-fade-in delay-3">
+            <p>© 2026 HuiYi0324. All rights reserved.</p>
+            <p>
+                Powered by <a href="https://github.com/nextlevelbuilder/ui-ux-pro-max-skill" target="_blank">UI-UX Pro Max Design Intelligence</a> 
+                & <a href="https://github.com/HuiYi0324/AgenticCoding" target="_blank">Agentic-Coding</a>
+            </p>
+        </footer>
+    </div>
+
+    <!-- Supabase 設定抽屜 (Settings Drawer) -->
+    <div class="drawer-overlay" id="drawer-overlay" onclick="toggleDrawer(false)"></div>
+    <div class="settings-drawer" id="settings-drawer">
+        <div class="drawer-header">
+            <div class="drawer-title">
+                <i class="fas fa-gears" style="color: var(--primary);"></i>
+                <span>Supabase 連線設定</span>
+            </div>
+            <button class="drawer-close" onclick="toggleDrawer(false)">
+                <i class="fas fa-xmark"></i>
+            </button>
+        </div>
+        
+        <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5;">
+            請填寫您的 Supabase 專案連線憑證。Anonymous Key (Anon) 是前端安全金鑰，可放心保存在瀏覽器本地。
+        </p>
+
+        <!-- 連線輸入欄位 -->
+        <div class="input-group">
+            <label class="input-label">Supabase URL</label>
+            <input type="text" class="drawer-input" id="input-supabase-url" placeholder="https://your-project.supabase.co">
+        </div>
+        
+        <div class="input-group">
+            <label class="input-label">Supabase Anon Key</label>
+            <input type="password" class="drawer-input" id="input-supabase-anon" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...">
+        </div>
+
+        <button class="btn-drawer-save" onclick="saveSupabaseSettings()">
+            <i class="fas fa-floppy-disk"></i> 儲存配置並動態載入
+        </button>
+
+        <!-- 殺手級功能：嘗試自動加載本地 .env -->
+        <button class="btn-drawer-fetch-env" onclick="fetchLocalEnv()">
+            <i class="fas fa-wand-magic-sparkles"></i> 智慧型偵測本地 .env
+        </button>
+
+        <div class="connection-status-panel">
+            <strong>目前連線狀態：</strong>
+            <div id="drawer-status-detail" style="margin-top: 0.25rem; font-family: var(--font-mono); font-size: 0.72rem; word-break: break-all;">
+                無配置，請先輸入憑證。
+            </div>
+        </div>
+    </div>
+
+    <!-- 載入 UI-UX Pro Max 原生資料庫 -->
+    <script src="src/design_data.js"></script>
+
+    <!-- 載入 Supabase JS Client SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+        // ==================================================================================
+        // 1. 全域變數與 Supabase 初始化
+        // ==================================================================================
+        let supabaseClient = null;
+        let reposData = []; // 動態從 Supabase 讀取的資料庫
+        let currentFilter = 'all';
+        let currentSearchQuery = '';
+
+        // 智慧加載：優先讀取 localStorage，其次嘗試本地開發伺服器的 .env 檔案
+        async function initSupabase() {
+            let url = localStorage.getItem('supabase_url');
+            let key = localStorage.getItem('supabase_anon_key');
+
+            if (url && key) {
+                setupSupabaseClient(url, key, '讀取自瀏覽器快取 (localStorage)');
+                return;
+            }
+
+            // 嘗試 fetch 同目錄的 .env 檔案 (極限本地開發體驗)
+            try {
+                const response = await fetch('.env');
+                if (response.ok) {
+                    const text = await response.text();
+                    const vars = {};
+                    text.split('\n').forEach(line => {
+                        const l = line.trim();
+                        if (l && !l.startsWith('#')) {
+                            const parts = l.split('=');
+                            if (parts.length >= 2) {
+                                vars[parts[0].trim()] = parts.slice(1).join('=').trim();
+                            }
+                        }
+                    });
+
+                    if (vars['SUPABASE_URL'] && vars['SUPABASE_ANON_KEY']) {
+                        url = vars['SUPABASE_URL'];
+                        key = vars['SUPABASE_ANON_KEY'];
+                        setupSupabaseClient(url, key, '智慧型自動偵測本地 .env 成功！');
+                        return;
+                    }
+                }
+            } catch (e) {
+                // 線上運行或無 .env 時，安靜失敗
+            }
+
+            // 兩者皆無，提示使用者設定連線
+            updateStatus(false, "未偵測到憑證，請點擊此處設定 Supabase 資料庫連線。");
+            toggleDrawer(true);
+        }
+
+        function setupSupabaseClient(url, key, sourceInfo) {
+            try {
+                supabaseClient = supabase.createClient(url, key);
+                
+                // 儲存至快取
+                localStorage.setItem('supabase_url', url);
+                localStorage.setItem('supabase_anon_key', key);
+                
+                // 填入抽屜輸入框
+                document.getElementById('input-supabase-url').value = url;
+                document.getElementById('input-supabase-anon').value = key;
+
+                updateStatus(true, `連線正常 (${sourceInfo})`);
+                
+                // 異步動態查詢資料
+                fetchReposFromSupabase();
+            } catch (err) {
+                updateStatus(false, `連線初始化出錯: ${err.message}`);
+            }
+        }
+
+        function updateStatus(isConnected, message) {
+            const badge = document.getElementById('conn-status-badge');
+            const text = document.getElementById('conn-status-text');
+            const drawerDetail = document.getElementById('drawer-status-detail');
+
+            if (isConnected) {
+                badge.className = "status-badge connected";
+                text.innerText = "SUPABASE CONNECTED";
+                drawerDetail.innerHTML = `<span style="color: var(--primary);">🟢 連線成功</span><br>網址: ${localStorage.getItem('supabase_url')}`;
+            } else {
+                badge.className = "status-badge";
+                text.innerText = "DATABASE DISCONNECTED";
+                drawerDetail.innerHTML = `<span style="color: var(--rose);">🔴 未連線</span><br>${message}`;
+            }
+        }
+
+        // ==================================================================================
+        // 2. 抽屜控制 & 憑證設定
+        // ==================================================================================
+        function toggleDrawer(isOpen) {
+            const overlay = document.getElementById('drawer-overlay');
+            const drawer = document.getElementById('settings-drawer');
+            if (isOpen) {
+                overlay.classList.add('active');
+                drawer.classList.add('active');
+            } else {
+                overlay.classList.remove('active');
+                drawer.classList.remove('active');
+            }
+        }
+
+        function saveSupabaseSettings() {
+            const url = document.getElementById('input-supabase-url').value.trim();
+            const key = document.getElementById('input-supabase-anon').value.trim();
+
+            if (!url || !key) {
+                alert("請填寫完整的 Supabase URL 與 Anon Key！");
+                return;
+            }
+
+            setupSupabaseClient(url, key, "手動配置載入");
+            toggleDrawer(false);
+        }
+
+        // 智慧偵測本地 .env
+        async function fetchLocalEnv() {
+            try {
+                const response = await fetch('.env');
+                if (response.ok) {
+                    const text = await response.text();
+                    const vars = {};
+                    text.split('\n').forEach(line => {
+                        const l = line.trim();
+                        if (l && !l.startsWith('#')) {
+                            const parts = l.split('=');
+                            if (parts.length >= 2) {
+                                vars[parts[0].trim()] = parts.slice(1).join('=').trim();
+                            }
+                        }
+                    });
+
+                    if (vars['SUPABASE_URL'] && vars['SUPABASE_ANON_KEY']) {
+                        document.getElementById('input-supabase-url').value = vars['SUPABASE_URL'];
+                        document.getElementById('input-supabase-anon').value = vars['SUPABASE_ANON_KEY'];
+                        alert("偵測本地 .env 成功，已自動為您填入！請點擊儲存以套用。");
+                        return;
+                    }
+                }
+                alert("未在當前網頁伺服器根目錄偵測到有效的 .env 檔案！線上 Pages 請手動輸入。");
+            } catch (e) {
+                alert("讀取 .env 檔案失敗: " + e.message);
+            }
+        }
+
+        // ==================================================================================
+        // 3. Supabase 資料檢索 (Database Select)
+        // ==================================================================================
+        async function fetchReposFromSupabase() {
+            if (!supabaseClient) return;
+
+            try {
+                const { data, error } = await supabaseClient
+                    .from('github_repos')
+                    .select('*')
+                    .order('stars', { ascending: false });
+
+                if (error) throw error;
+
+                // 將 Supabase 返回的欄位結構轉換回 reposData 格式
+                reposData = data.map(item => ({
+                    name: item.name,
+                    desc: item.description,
+                    url: item.url,
+                    stars: parseInt(item.stars || 0),
+                    lang: item.language || 'unknown',
+                    forks: parseInt(item.forks || 0),
+                    updated: item.updated_at ? item.updated_at.split('T')[0] : '無更新時間'
+                }));
+
+                // 移除骨架屏
+                document.querySelectorAll('.skeleton-card').forEach(el => el.remove());
+
+                // 動態產生語言分類標籤
+                generateFilterTags();
+
+                // 渲染專案展示卡片
+                renderRepos();
+
+            } catch (err) {
+                updateStatus(false, `加載資料表失敗: ${err.message}`);
+                // 渲染連線失敗提示
+                const grid = document.getElementById('repos-grid');
+                grid.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: var(--rose);">
+                        <i class="fas fa-triangle-exclamation" style="font-size: 2.5rem; margin-bottom: 1rem; display: block;"></i>
+                        無法從 Supabase 取得 github_repos 資料表！請確認您已在資料庫執行 SQL Schema 建立資料表，且啟用 Anon 唯讀政策。
+                    </div>
+                `;
+            }
+        }
+
+        // 動態產生語言分類標籤
+        function generateFilterTags() {
+            const container = document.getElementById('filter-container');
+            container.innerHTML = '';
+
+            // 統計語言分佈
+            const langs = new Set();
+            reposData.forEach(repo => {
+                if (repo.lang) langs.add(repo.lang);
+            });
+
+            // 預設加上全部專案按鈕
+            const allBtn = document.createElement('button');
+            allBtn.className = "filter-btn active";
+            allBtn.setAttribute('data-filter', 'all');
+            allBtn.innerText = `全部專案 (All)`;
+            container.appendChild(allBtn);
+
+            // 迴圈加入非 empty 的語言
+            langs.forEach(lang => {
+                const btn = document.createElement('button');
+                btn.className = "filter-btn";
+                const filterVal = lang === 'unknown' ? 'unknown' : lang;
+                const displayVal = lang === 'unknown' ? '無指定語言' : lang;
+                btn.setAttribute('data-filter', filterVal);
+                btn.innerText = displayVal;
+                container.appendChild(btn);
+            });
+        }
+
+        // ==================================================================================
+        // 4. 多段式自動打字機效果 (Advanced Typewriter)
+        // ==================================================================================
+        const typedStrings = [
+            "AI & Machine Learning Explorer",
+            "Agent Automation Architect",
+            "Full-Stack Code Craftsman"
+        ];
+        let stringIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typedTextEl = document.getElementById('typed-text');
+
+        function type() {
+            const currentString = typedStrings[stringIndex];
+            if (isDeleting) {
+                typedTextEl.textContent = currentString.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typedTextEl.textContent = currentString.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 40 : 80;
+
+            if (!isDeleting && charIndex === currentString.length) {
+                typeSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                stringIndex = (stringIndex + 1) % typedStrings.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(type, typeSpeed);
+        }
+
+        // ==================================================================================
+        // 5. 滑鼠隨動聚焦流光 (Mouse Spot Glow)
+        // ==================================================================================
+        function setupGlowEffect(element) {
+            if (!element) return;
+            element.addEventListener('mousemove', (e) => {
+                const rect = element.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                element.style.setProperty('--mouse-x', `${x}px`);
+                element.style.setProperty('--mouse-y', `${y}px`);
+            });
+        }
+
+        // 綁定全域卡片流光
+        setupGlowEffect(document.getElementById('main-profile-card'));
+        setupGlowEffect(document.getElementById('ui-ux-hub-card'));
+        setupGlowEffect(document.querySelector('.interactive-design-center'));
+
+        // ==================================================================================
+        // 6. UI-UX Pro Max 設計智慧搜尋邏輯
+        // ==================================================================================
+        const designSearchInput = document.getElementById('design-search-input');
+        const designResultsPanel = document.getElementById('design-results-panel');
+
+        function triggerDesignSearch(val) {
+            designSearchInput.value = val;
+            performDesignSearch(val);
+        }
+
+        function performDesignSearch(query) {
+            if (!DESIGN_DATA || !DESIGN_DATA.styles) {
+                designResultsPanel.innerHTML = '<div style="color: var(--rose);">⚠️ 無法載入設計系統數據庫。</div>';
+                return;
+            }
+
+            const q = query.trim().toLowerCase();
+            if (!q) {
+                renderDefaultStyle();
+                return;
+            }
+
+            const results = DESIGN_DATA.styles.filter(item => {
+                const category = (item["Style Category"] || "").toLowerCase();
+                const keywords = (item["Keywords"] || "").toLowerCase();
+                return category.includes(q) || keywords.includes(q);
+            });
+
+            if (results.length === 0) {
+                designResultsPanel.innerHTML = `
+                    <div style="text-align: center; padding: 2rem; color: var(--text-muted);">
+                        <i class="fas fa-circle-question" style="font-size: 2rem; margin-bottom: 0.5rem; display: block; color: var(--text-muted);"></i>
+                        未在設計智庫中找到與 "${query}" 匹配的風格，試試輸入熱門選項！
+                    </div>
+                `;
+                return;
+            }
+
+            renderStyleCard(results[0]);
+        }
+
+        function parseColors(colorString) {
+            if (!colorString) return '';
+            const hexRegex = /#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})/g;
+            const matches = colorString.match(hexRegex) || [];
+            
+            return matches.map(hex => `
+                <span class="color-bubble">
+                    <span class="color-dot" style="background-color: ${hex}; box-shadow: 0 0 6px ${hex};"></span>
+                    ${hex}
+                </span>
+            `).join('');
+        }
+
+        function renderStyleCard(style) {
+            const colorBubbles = parseColors(style["Primary Colors"] || style["Secondary Colors"]);
+            
+            designResultsPanel.innerHTML = `
+                <div class="design-style-card">
+                    <div class="style-card-left">
+                        <div class="style-name">
+                            <i class="fas fa-palette"></i>
+                            ${style["Style Category"] || "未命名風格"}
+                        </div>
+                        
+                        <div class="style-meta-item">
+                            <div class="style-meta-label">風格關鍵字 (Keywords)</div>
+                            <div class="style-meta-content">${style["Keywords"] || "無"}</div>
+                        </div>
+
+                        <div class="style-meta-item">
+                            <div class="style-meta-label">配色方案 (Color Palette)</div>
+                            <div class="style-meta-content">
+                                ${style["Primary Colors"] || "無"}
+                                <div class="color-bubble-row">${colorBubbles}</div>
+                            </div>
+                        </div>
+
+                        <div class="style-meta-item">
+                            <div class="style-meta-label">動效與轉場 (Effects & Motion)</div>
+                            <div class="style-meta-content">${style["Effects & Animation"] || "無"}</div>
+                        </div>
+                    </div>
+
+                    <div class="style-card-right">
+                        <div class="style-meta-item">
+                            <div class="style-meta-label">AI 繪圖/設計關鍵字 (AI Prompt Keywords)</div>
+                            <div class="code-snippet-box">
+                                <span class="code-text" id="ai-prompt-text">${style["AI Prompt Keywords"] || "無"}</span>
+                                <button class="code-copy-btn" onclick="copyText('ai-prompt-text', this)" title="複製 AI Prompt">
+                                    <i class="far fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="style-meta-item">
+                            <div class="style-meta-label">CSS 設計變數 (CSS System Variables)</div>
+                            <div class="code-snippet-box">
+                                <span class="code-text" id="css-variables-text">${style["Design System Variables"] || "無"}</span>
+                                <button class="code-copy-btn" onclick="copyText('css-variables-text', this)" title="複製 CSS 變數">
+                                    <i class="far fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="style-meta-item">
+                            <div class="style-meta-label">適用場景 (Best For)</div>
+                            <div style="color: var(--success); font-size: 0.88rem; font-weight: 500;">
+                                <i class="fas fa-circle-check"></i> ${style["Best For"] || "無"}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderDefaultStyle() {
+            if (DESIGN_DATA && DESIGN_DATA.styles && DESIGN_DATA.styles.length > 2) {
+                const defaultStyle = DESIGN_DATA.styles.find(item => (item["Style Category"] || "").includes("Glassmorphism")) || DESIGN_DATA.styles[2];
+                renderStyleCard(defaultStyle);
+            }
+        }
+
+        // ==================================================================================
+        // 7. UX 原則隨機抽卡邏輯
+        // ==================================================================================
+        function getRandomUxWisdom() {
+            if (!DESIGN_DATA || !DESIGN_DATA.ux || DESIGN_DATA.ux.length === 0) {
+                document.getElementById('ux-wisdom-content').innerText = "無法讀取設計智慧指南。";
+                return;
+            }
+            
+            const randIndex = Math.floor(Math.random() * DESIGN_DATA.ux.length);
+            const item = DESIGN_DATA.ux[randIndex];
+            
+            const title = item["Issue"] || item["UX Rule"] || item["Principle"] || "高階體驗指南";
+            const badPattern = item["Don't"] || item["Anti-Pattern"] || "無";
+            const goodPattern = item["Do"] || item["Best Practice"] || item["Correct Pattern"] || "無";
+            const category = item["Category"] || "UX";
+            
+            document.getElementById('ux-wisdom-content').innerHTML = `
+                <div style="margin-bottom: 0.4rem; font-weight: 600; color: var(--text-primary);">
+                    <span style="background: rgba(219, 119, 6, 0.08); color: var(--warning); padding: 0.15rem 0.5rem; border-radius: 4px; font-size: 0.72rem; margin-right: 0.5rem; font-weight: 700;">${category}</span>
+                    ${title}
+                </div>
+                <div style="font-size: 0.85rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 0.25rem;">
+                    <div style="color: var(--rose);"><i class="fas fa-circle-xmark"></i> <strong>反模式 (Anti-Pattern):</strong> ${badPattern}</div>
+                    <div style="color: var(--success);"><i class="fas fa-circle-check"></i> <strong>最佳實踐 (Best Practice):</strong> ${goodPattern}</div>
+                </div>
+            `;
+        }
+
+        // ==================================================================================
+        // 8. 通用複製文字工具
+        // ==================================================================================
+        function copyText(elementId, btnElement) {
+            const text = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const icon = btnElement.querySelector('i');
+                icon.className = "fas fa-check";
+                icon.style.color = "var(--success)";
+                setTimeout(() => {
+                    icon.className = "far fa-copy";
+                    icon.style.color = "";
+                }, 1500);
+            }).catch(err => {
+                console.error("無法複製文字: ", err);
+            });
+        }
+
+        // ==================================================================================
+        // 9. GitHub 專案卡片動態渲染與搜尋過濾
+        // ==================================================================================
+        function renderRepos() {
+            // 清除骨架屏與現有卡片
+            const cards = reposGrid.querySelectorAll('.repo-card:not(.skeleton-card)');
+            cards.forEach(card => card.remove());
+
+            const filteredData = reposData.filter(repo => {
+                const langMatch = currentFilter === 'all' || 
+                                 (currentFilter === 'unknown' && repo.lang === 'unknown') ||
+                                 (repo.lang === currentFilter);
+                
+                const searchMatch = !currentSearchQuery ||
+                                    repo.name.toLowerCase().includes(currentSearchQuery) ||
+                                    (repo.desc && repo.desc.toLowerCase().includes(currentSearchQuery)) ||
+                                    (repo.lang && repo.lang.toLowerCase().includes(currentSearchQuery));
+                
+                return langMatch && searchMatch;
+            });
+
+            if (filteredData.length === 0) {
+                noResultsCard.style.display = 'block';
+                return;
+            }
+            noResultsCard.style.display = 'none';
+
+            filteredData.forEach(repo => {
+                const card = document.createElement('div');
+                card.className = 'repo-card';
+                
+                const langClass = `lang-${(repo.lang || 'unknown').toLowerCase().replace(' ', '-')}`;
+                const displayLang = repo.lang === 'unknown' ? '無指定語言' : repo.lang;
+
+                card.innerHTML = `
+                    <div class="repo-header">
+                        <div class="repo-icon-row">
+                            <i class="far fa-folder-open repo-folder-icon"></i>
+                            <a href="${repo.url}" target="_blank" class="repo-github-link" title="前往 GitHub 倉庫">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                        <h4 class="repo-title">${repo.name}</h4>
+                        <p class="repo-desc">${repo.desc || '暫無專案描述。'}</p>
+                    </div>
+                    <div>
+                        <div class="repo-footer">
+                            <span class="repo-lang">
+                                <span class="lang-dot ${langClass}"></span>
+                                ${displayLang}
+                            </span>
+                            <div class="repo-stats-group">
+                                <span class="repo-stat-item star-stat">
+                                    <i class="far fa-star"></i> ${repo.stars}
+                                </span>
+                                <span class="repo-stat-item fork-stat">
+                                    <i class="fas fa-code-branch"></i> ${repo.forks}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="repo-date">最後更新: ${repo.updated}</div>
+                    </div>
+                `;
+
+                card.addEventListener('click', (e) => {
+                    if (e.target.closest('.repo-github-link')) return;
+                    window.open(repo.url, '_blank');
+                });
+
+                setupGlowEffect(card);
+                setupTiltEffect(card);
+                reposGrid.appendChild(card);
+            });
+        }
+
+        // ==================================================================================
+        // 10. 炫酷卡片 3D 傾斜效果
+        // ==================================================================================
+        function setupTiltEffect(card) {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = ((centerY - y) / centerY) * 6;
+                const rotateY = ((x - centerX) / centerX) * 6;
+                
+                card.style.transform = `perspective(1000px) translateY(-4px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
+        }
+
+        document.querySelectorAll('.stack-item-3d').forEach(item => {
+            setupGlowEffect(item);
+            setupTiltEffect(item);
+        });
+
+        // ==================================================================================
+        // 11. 事件監聽設定與初始載入
+        // ==================================================================================
+        searchInput.addEventListener('input', (e) => {
+            currentSearchQuery = e.target.value.toLowerCase().trim();
+            renderRepos();
+        });
+
+        filterContainer.addEventListener('click', (e) => {
+            const btn = e.target.closest('.filter-btn');
+            if (!btn) return;
+
+            filterContainer.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            currentFilter = btn.getAttribute('data-filter');
+            renderRepos();
+        });
+
+        designSearchInput.addEventListener('input', (e) => {
+            performDesignSearch(e.target.value);
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(type, 500);
+            renderDefaultStyle();
+            getRandomUxWisdom();
+
+            // 啟動 Supabase 連線初始化
+            initSupabase();
+        });
+    </script>
+</body>
+</html>
