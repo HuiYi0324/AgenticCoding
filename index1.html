@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HuiYi0324 | GitHub Agentic Hub</title>
-    <meta name="description" content="HuiYi0324 的 GitHub 個人介紹與精選開源儲存庫展示，基於 UI-UX Pro Max 玻璃擬態與極致科技感美學設計。">
+    <meta name="description" content="HuiYi0324 的 GitHub 個人介紹與精選開源儲存庫展示，融合 UI-UX Pro Max 玻璃擬態與極緻科技感美學設計。">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,16 +19,16 @@
            1. 設計系統與核心變數 (Design System)
            ---------------------------------- */
         :root {
-            --bg-color: #030712;       /* OLED 極緻暗夜黑 */
+            --bg-color: #020617;       /* OLED 深海星空黑 */
             --bg-grid: rgba(255, 255, 255, 0.015);
             --bg-dot: rgba(255, 255, 255, 0.025);
             
             /* 精緻毛玻璃卡片變數 */
-            --glass-bg: rgba(17, 24, 39, 0.45);
-            --glass-border: rgba(255, 255, 255, 0.07);
+            --glass-bg: rgba(15, 23, 42, 0.45);
+            --glass-border: rgba(255, 255, 255, 0.06);
             --glass-border-hover: rgba(255, 255, 255, 0.15);
-            --glass-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-            --glass-inner-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            --glass-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+            --glass-inner-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.08);
             
             /* 霓虹與主要色彩系統 */
             --primary: #6366f1;          /* 電光靛藍 */
@@ -39,9 +39,10 @@
             --accent-rgb: 168, 85, 247;
             --rose: #f43f5e;             /* 烈焰玫瑰粉 */
             --success: #10b981;          /* 科技活耀綠 */
+            --warning: #f59e0b;          /* 警告琥珀黃 */
             
             /* 文字色彩層次 */
-            --text-primary: #f9fafb;
+            --text-primary: #f8fafc;
             --text-secondary: #cbd5e1;
             --text-muted: #64748b;
             
@@ -51,7 +52,7 @@
             --font-mono: 'Fira Code', monospace;
             
             /* 頂級絲滑過渡曲線 */
-            --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         /* ----------------------------------
@@ -83,8 +84,8 @@
             z-index: -2;
             overflow: hidden;
             pointer-events: none;
-            filter: blur(130px);
-            opacity: 0.85;
+            filter: blur(120px);
+            opacity: 0.8;
         }
 
         .aurora-blob {
@@ -95,17 +96,17 @@
         }
 
         .blob-indigo {
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.25) 0%, rgba(99, 102, 241, 0) 70%);
+            width: 650px;
+            height: 650px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.22) 0%, rgba(99, 102, 241, 0) 70%);
             top: -10%;
             left: -5%;
         }
 
         .blob-cyan {
-            width: 550px;
-            height: 550px;
-            background: radial-gradient(circle, rgba(6, 182, 212, 0.2) 0%, rgba(6, 182, 212, 0) 70%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.18) 0%, rgba(6, 182, 212, 0) 70%);
             bottom: -15%;
             right: -5%;
             animation-delay: -5s;
@@ -113,28 +114,20 @@
         }
 
         .blob-purple {
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(168, 85, 247, 0.18) 0%, rgba(168, 85, 247, 0) 70%);
+            width: 550px;
+            height: 550px;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.16) 0%, rgba(168, 85, 247, 0) 70%);
             top: 35%;
-            left: 45%;
+            left: 40%;
             animation-delay: -10s;
             animation-duration: 22s;
         }
 
         @keyframes aurora-flow {
-            0% {
-                transform: translate(0, 0) scale(1) rotate(0deg);
-            }
-            33% {
-                transform: translate(80px, 120px) scale(1.15) rotate(120deg);
-            }
-            66% {
-                transform: translate(-60px, 80px) scale(0.9) rotate(240deg);
-            }
-            100% {
-                transform: translate(40px, -60px) scale(1.05) rotate(360deg);
-            }
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            33% { transform: translate(60px, 100px) scale(1.1) rotate(120deg); }
+            66% { transform: translate(-50px, 60px) scale(0.95) rotate(240deg); }
+            100% { transform: translate(30px, -40px) scale(1.05) rotate(360deg); }
         }
 
         /* 雙層高科技背景紋理：線性網格 + 點陣光柵 (Grid & Dot-Matrix) */
@@ -148,7 +141,6 @@
             pointer-events: none;
         }
 
-        /* 精細網格線 */
         .grid-mesh {
             position: absolute;
             width: 100%;
@@ -156,16 +148,15 @@
             background-image: 
                 linear-gradient(var(--bg-grid) 1px, transparent 1px),
                 linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px);
-            background-size: 60px 60px;
+            background-size: 50px 50px;
         }
 
-        /* HUD 科幻點陣光柵 */
         .dot-matrix {
             position: absolute;
             width: 100%;
             height: 100%;
             background-image: radial-gradient(var(--bg-dot) 1.5px, transparent 1.5px);
-            background-size: 24px 24px;
+            background-size: 25px 25px;
         }
 
         /* ----------------------------------
@@ -174,7 +165,7 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 5rem 2rem;
+            padding: 4rem 2rem;
             position: relative;
             z-index: 1;
         }
@@ -182,7 +173,7 @@
         header {
             display: flex;
             justify-content: center;
-            margin-bottom: 5rem;
+            margin-bottom: 4rem;
         }
 
         /* ----------------------------------
@@ -192,7 +183,7 @@
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
             border-radius: 28px;
-            padding: 3.5rem;
+            padding: 3rem;
             width: 100%;
             max-width: 950px;
             backdrop-filter: blur(24px);
@@ -203,7 +194,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 2.5rem;
+            gap: 2rem;
             transition: var(--transition-smooth);
         }
 
@@ -215,8 +206,8 @@
             width: 100%;
             height: 100%;
             background: radial-gradient(
-                800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-                rgba(255, 255, 255, 0.05),
+                600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                rgba(99, 102, 241, 0.08),
                 transparent 45%
             );
             z-index: 0;
@@ -226,24 +217,23 @@
 
         .profile-card:hover {
             border-color: var(--glass-border-hover);
-            box-shadow: 0 30px 60px rgba(99, 102, 241, 0.15);
-            transform: translateY(-4px);
+            box-shadow: 0 30px 60px rgba(99, 102, 241, 0.12);
+            transform: translateY(-2px);
         }
 
         /* 3D 頭像流光光圈 */
         .avatar-wrapper {
             position: relative;
-            width: 160px;
-            height: 160px;
+            width: 140px;
+            height: 140px;
             border-radius: 50%;
             z-index: 1;
-            padding: 5px;
+            padding: 4px;
             background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
-            box-shadow: 0 0 35px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.35);
             animation: pulse-glow 3s infinite alternate ease-in-out;
         }
 
-        /* 動態旋轉光環效果 */
         .avatar-wrapper::after {
             content: '';
             position: absolute;
@@ -251,7 +241,7 @@
             border-radius: 50%;
             background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
             z-index: -1;
-            filter: blur(10px);
+            filter: blur(8px);
             opacity: 0.8;
             animation: rotate-gradient 6s infinite linear;
         }
@@ -261,29 +251,23 @@
             height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            background: #0b0f19;
-            border: 4px solid #030712;
+            background: #0f172a;
+            border: 4px solid #020617;
         }
 
         @keyframes pulse-glow {
-            0% {
-                box-shadow: 0 0 25px rgba(99, 102, 241, 0.35);
-            }
-            100% {
-                box-shadow: 0 0 45px rgba(6, 182, 212, 0.65);
-            }
+            0% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.3); }
+            100% { box-shadow: 0 0 35px rgba(6, 182, 212, 0.5); }
         }
 
         @keyframes rotate-gradient {
-            100% {
-                transform: rotate(360deg);
-            }
+            100% { transform: rotate(360deg); }
         }
 
         /* 狀態指示燈：Agent 呼吸燈 */
         .status-badge {
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.25);
+            background: rgba(16, 185, 129, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.2);
             border-radius: 50px;
             padding: 0.4rem 1.2rem;
             font-family: var(--font-mono);
@@ -307,16 +291,8 @@
         }
 
         @keyframes dot-pulse {
-            0% {
-                transform: scale(0.8);
-                opacity: 0.5;
-                box-shadow: 0 0 4px var(--success);
-            }
-            100% {
-                transform: scale(1.2);
-                opacity: 1;
-                box-shadow: 0 0 12px var(--success);
-            }
+            0% { transform: scale(0.85); opacity: 0.6; box-shadow: 0 0 4px var(--success); }
+            100% { transform: scale(1.15); opacity: 1; box-shadow: 0 0 12px var(--success); }
         }
 
         /* 個人文字資訊 */
@@ -327,20 +303,20 @@
 
         .profile-name {
             font-family: var(--font-title);
-            font-size: 3.2rem;
+            font-size: 3rem;
             font-weight: 800;
             letter-spacing: -0.03em;
-            background: linear-gradient(135deg, #ffffff 30%, #e2e8f0 70%, rgba(99, 102, 241, 0.7));
+            background: linear-gradient(135deg, #ffffff 40%, #e2e8f0 70%, rgba(99, 102, 241, 0.8));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
         }
 
         .profile-title {
             font-family: var(--font-mono);
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             color: var(--secondary);
-            margin-bottom: 1.25rem;
+            margin-bottom: 1.2rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -363,36 +339,36 @@
         .profile-bio {
             color: var(--text-secondary);
             max-width: 650px;
-            font-size: 1.08rem;
-            margin: 0 auto 2rem;
+            font-size: 1.02rem;
+            margin: 0 auto 1.8rem;
             font-family: var(--font-main);
             font-weight: 400;
+            line-height: 1.7;
         }
 
         /* 社交連結按鈕 */
         .profile-buttons {
             display: flex;
             justify-content: center;
-            gap: 1.25rem;
+            gap: 1rem;
             flex-wrap: wrap;
         }
 
         .btn-premium {
             display: inline-flex;
             align-items: center;
-            gap: 0.75rem;
-            padding: 0.85rem 1.8rem;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(6, 182, 212, 0.2));
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            gap: 0.6rem;
+            padding: 0.75rem 1.6rem;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(6, 182, 212, 0.15));
+            border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 50px;
             color: #ffffff;
             text-decoration: none;
             font-family: var(--font-title);
             font-weight: 600;
-            font-size: 0.98rem;
+            font-size: 0.95rem;
             transition: var(--transition-smooth);
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             position: relative;
             overflow: hidden;
         }
@@ -402,65 +378,65 @@
             position: absolute;
             top: 0; left: -100%;
             width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
             transition: 0.5s;
         }
 
         .btn-premium:hover::before {
             left: 100%;
-            transition: 0.7s ease-in-out;
+            transition: 0.6s ease-in-out;
         }
 
         .btn-premium:hover {
-            border-color: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.2);
             background: linear-gradient(135deg, var(--primary), var(--secondary));
-            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.35);
-            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.25);
+            transform: translateY(-2px) scale(1.02);
         }
 
         /* 個人統計數據玻璃窗 */
         .profile-stats {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
+            gap: 1.5rem;
             width: 100%;
             max-width: 650px;
-            margin-top: 1.5rem;
+            margin-top: 1rem;
             z-index: 1;
         }
 
         .stat-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            border-radius: 20px;
-            padding: 1.25rem;
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 18px;
+            padding: 1.1rem;
             text-align: center;
             transition: var(--transition-smooth);
             backdrop-filter: blur(8px);
         }
 
         .stat-card:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(99, 102, 241, 0.25);
-            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(99, 102, 241, 0.2);
+            transform: translateY(-2px);
         }
 
         .stat-value {
             font-family: var(--font-title);
-            font-size: 2.2rem;
+            font-size: 2rem;
             font-weight: 700;
             color: #ffffff;
-            background: linear-gradient(to bottom, #ffffff, #e2e8f0);
+            background: linear-gradient(to bottom, #ffffff, #cbd5e1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .stat-label {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 0.12em;
-            margin-top: 0.25rem;
+            letter-spacing: 0.1em;
+            margin-top: 0.2rem;
             font-family: var(--font-title);
             font-weight: 500;
         }
@@ -470,9 +446,9 @@
            ---------------------------------- */
         .double-column-section {
             display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 2.5rem;
-            margin-bottom: 5rem;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 2rem;
+            margin-bottom: 4rem;
         }
 
         /* (A) UI-UX Pro Max 認證中樞 */
@@ -480,7 +456,7 @@
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
             border-radius: 24px;
-            padding: 2.5rem;
+            padding: 2.2rem;
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             box-shadow: var(--glass-shadow);
@@ -488,24 +464,24 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 1.2rem;
             transition: var(--transition-smooth);
         }
 
         .skill-hub-card:hover {
             border-color: var(--glass-border-hover);
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(168, 85, 247, 0.08);
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px rgba(168, 85, 247, 0.06);
         }
 
         .badge-premium-ai {
             align-self: flex-start;
-            background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(244, 63, 94, 0.15));
-            border: 1px solid rgba(168, 85, 247, 0.3);
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.12), rgba(244, 63, 94, 0.12));
+            border: 1px solid rgba(168, 85, 247, 0.25);
             border-radius: 50px;
-            padding: 0.35rem 1rem;
+            padding: 0.35rem 0.9rem;
             font-family: var(--font-mono);
-            font-size: 0.78rem;
+            font-size: 0.75rem;
             color: #d8b4fe;
             display: inline-flex;
             align-items: center;
@@ -514,7 +490,7 @@
 
         .hub-title {
             font-family: var(--font-title);
-            font-size: 1.75rem;
+            font-size: 1.6rem;
             font-weight: 700;
             color: #ffffff;
             letter-spacing: -0.01em;
@@ -522,7 +498,7 @@
 
         .hub-desc {
             color: var(--text-secondary);
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             line-height: 1.6;
         }
 
@@ -530,28 +506,28 @@
         .metrics-row {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            margin-top: 0.5rem;
+            gap: 0.8rem;
+            margin-top: 0.3rem;
         }
 
         .metric-gauge-card {
-            background: rgba(255, 255, 255, 0.015);
-            border: 1px solid rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.012);
+            border: 1px solid rgba(255, 255, 255, 0.02);
             border-radius: 16px;
-            padding: 1rem;
+            padding: 0.9rem;
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.6rem;
+            gap: 0.5rem;
         }
 
         .gauge-circle {
             position: relative;
-            width: 70px;
-            height: 70px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
-            background: conic-gradient(var(--accent) calc(var(--percent) * 1%), rgba(255,255,255,0.05) 0);
+            background: conic-gradient(var(--accent) calc(var(--percent) * 1%), rgba(255,255,255,0.04) 0);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -560,56 +536,26 @@
         .gauge-circle::before {
             content: '';
             position: absolute;
-            width: 58px;
-            height: 58px;
+            width: 53px;
+            height: 53px;
             border-radius: 50%;
-            background: #0f1322;
+            background: #0b0f19;
         }
 
         .gauge-value {
             position: relative;
             z-index: 1;
             font-family: var(--font-title);
-            font-size: 1.05rem;
+            font-size: 0.95rem;
             font-weight: 700;
             color: #ffffff;
         }
 
         .gauge-label {
-            font-size: 0.78rem;
+            font-size: 0.72rem;
             color: var(--text-muted);
             font-family: var(--font-title);
             font-weight: 500;
-        }
-
-        .cli-demo {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 0.85rem 1.25rem;
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
-            color: #a5b4fc;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: auto;
-        }
-
-        .cli-prompt {
-            user-select: none;
-            color: var(--text-muted);
-            margin-right: 0.5rem;
-        }
-
-        .cli-copy {
-            cursor: pointer;
-            color: var(--text-muted);
-            transition: var(--transition-smooth);
-        }
-
-        .cli-copy:hover {
-            color: #ffffff;
         }
 
         /* (B) 3D 技術棧磁貼 (3D Tilt Stacks) */
@@ -617,88 +563,349 @@
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
             border-radius: 24px;
-            padding: 2.5rem;
+            padding: 2.2rem;
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             box-shadow: var(--glass-shadow);
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 1.2rem;
             transition: var(--transition-smooth);
         }
 
         .tech-stack-section:hover {
             border-color: var(--glass-border-hover);
-            transform: translateY(-4px);
+            transform: translateY(-2px);
         }
 
         .stack-title {
             font-family: var(--font-title);
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 700;
             color: #ffffff;
             display: flex;
             align-items: center;
-            gap: 0.6rem;
+            gap: 0.5rem;
         }
 
         .stack-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            perspective: 1000px; /* 支援子元素的 3D 效果 */
+            gap: 0.8rem;
         }
 
         .stack-item-3d {
             background: rgba(255, 255, 255, 0.015);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            border-radius: 16px;
-            padding: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 14px;
+            padding: 0.9rem;
             display: flex;
             align-items: center;
-            gap: 0.8rem;
+            gap: 0.7rem;
             cursor: pointer;
-            transform-style: preserve-3d;
-            transition: transform 0.1s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            transition: var(--transition-smooth);
             position: relative;
         }
 
         .stack-item-3d:hover {
-            border-color: rgba(var(--theme-color-rgb), 0.5);
-            box-shadow: 0 10px 20px rgba(var(--theme-color-rgb), 0.12);
+            border-color: rgba(var(--theme-color-rgb), 0.4);
+            background: rgba(var(--theme-color-rgb), 0.05);
+            box-shadow: 0 8px 20px rgba(var(--theme-color-rgb), 0.1);
+            transform: translateY(-2px);
         }
 
         .stack-icon {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             color: rgb(var(--theme-color-rgb));
-            transform: translateZ(15px); /* 立體前浮 */
             transition: var(--transition-smooth);
+        }
+
+        .stack-item-3d:hover .stack-icon {
+            transform: scale(1.1);
         }
 
         .stack-item-name {
             font-family: var(--font-title);
-            font-size: 0.95rem;
+            font-size: 0.88rem;
             font-weight: 600;
             color: #ffffff;
-            transform: translateZ(10px);
         }
 
         /* ----------------------------------
-           6. 篩選與排序控制面板 (Interactive Controls)
+           6. 互動式 UI-UX Pro Max 設計智慧搜尋區
+           ---------------------------------- */
+        .interactive-design-center {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 26px;
+            padding: 2.5rem;
+            margin-bottom: 4rem;
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            box-shadow: var(--glass-shadow);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+        }
+
+        .interactive-design-center:hover {
+            border-color: rgba(168, 85, 247, 0.2);
+            box-shadow: 0 30px 60px rgba(168, 85, 247, 0.08);
+        }
+
+        .design-center-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .design-center-badge {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(6, 182, 212, 0.12));
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 50px;
+            padding: 0.35rem 1rem;
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: #a5b4fc;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        /* 搜尋推薦標籤 */
+        .design-search-suggest {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.8rem;
+            align-items: center;
+        }
+
+        .suggest-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-family: var(--font-title);
+        }
+
+        .suggest-tag {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 50px;
+            padding: 0.25rem 0.85rem;
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-family: var(--font-mono);
+            transition: var(--transition-smooth);
+        }
+
+        .suggest-tag:hover {
+            background: rgba(168, 85, 247, 0.1);
+            border-color: rgba(168, 85, 247, 0.3);
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        /* 科幻搜尋結果顯示框 */
+        .search-results-panel {
+            margin-top: 1.8rem;
+            min-height: 200px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .design-style-card {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 1.8rem;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 2rem;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .style-card-left {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .style-card-right {
+            border-left: 1px solid rgba(255, 255, 255, 0.05);
+            padding-left: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .style-name {
+            font-family: var(--font-title);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .style-meta-item {
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .style-meta-label {
+            font-family: var(--font-title);
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .style-meta-content {
+            color: var(--text-secondary);
+        }
+
+        .color-bubble-row {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.25rem;
+        }
+
+        .color-bubble {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 50px;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.75rem;
+            font-family: var(--font-mono);
+            color: #ffffff;
+        }
+
+        .color-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        /* 複製代碼區塊 */
+        .code-snippet-box {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1rem;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: #a5b4fc;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .code-text {
+            word-break: break-all;
+            white-space: pre-wrap;
+            line-height: 1.5;
+            padding-right: 1.5rem;
+        }
+
+        .code-copy-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-size: 1rem;
+        }
+
+        .code-copy-btn:hover {
+            color: #ffffff;
+            transform: scale(1.1);
+        }
+
+        /* UX 防錯隨機面板 */
+        .ux-wisdom-panel {
+            background: rgba(245, 158, 11, 0.02);
+            border: 1px dashed rgba(245, 158, 11, 0.15);
+            border-radius: 18px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .ux-wisdom-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ux-wisdom-title {
+            font-family: var(--font-title);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--warning);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .ux-wisdom-body {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .ux-wisdom-refresh {
+            background: none;
+            border: none;
+            color: var(--warning);
+            cursor: pointer;
+            font-family: var(--font-title);
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+        }
+
+        .ux-wisdom-refresh:hover {
+            color: #ffffff;
+            transform: rotate(180deg);
+        }
+
+        /* ----------------------------------
+           7. 篩選與排序控制面板 (Interactive Controls)
            ---------------------------------- */
         .controls-section {
             width: 100%;
-            margin-top: 4rem;
-            margin-bottom: 2.5rem;
+            margin-top: 3rem;
+            margin-bottom: 2.2rem;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1.5rem;
+            gap: 1.2rem;
         }
 
         .section-title {
             font-family: var(--font-title);
-            font-size: 2.4rem;
+            font-size: 2.2rem;
             font-weight: 800;
             letter-spacing: -0.02em;
             position: relative;
@@ -712,11 +919,11 @@
         .section-title::after {
             content: '';
             position: absolute;
-            bottom: -8px;
+            bottom: -6px;
             left: 50%;
             transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
+            width: 60px;
+            height: 3px;
             border-radius: 2px;
             background: linear-gradient(to right, var(--primary), var(--secondary));
         }
@@ -725,10 +932,10 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1.25rem;
+            gap: 1rem;
             width: 100%;
             max-width: 750px;
-            margin-top: 1.5rem;
+            margin-top: 1rem;
         }
 
         /* 科幻搜尋框 */
@@ -740,12 +947,12 @@
         .search-input {
             width: 100%;
             background: rgba(15, 23, 42, 0.45);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 50px;
-            padding: 0.9rem 1.5rem 0.9rem 3.2rem;
+            padding: 0.85rem 1.5rem 0.85rem 3rem;
             font-family: var(--font-main);
             color: #ffffff;
-            font-size: 1rem;
+            font-size: 0.98rem;
             outline: none;
             backdrop-filter: blur(12px);
             transition: var(--transition-smooth);
@@ -753,17 +960,17 @@
 
         .search-input:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(99, 102, 241, 0.25);
-            background: rgba(15, 23, 42, 0.7);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+            background: rgba(15, 23, 42, 0.65);
         }
 
         .search-icon {
             position: absolute;
-            left: 1.35rem;
+            left: 1.2rem;
             top: 50%;
             transform: translateY(-50%);
             color: var(--text-muted);
-            font-size: 1.1rem;
+            font-size: 1rem;
             pointer-events: none;
             transition: var(--transition-smooth);
         }
@@ -777,53 +984,53 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 0.75rem;
+            gap: 0.6rem;
         }
 
         .filter-btn {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid rgba(255, 255, 255, 0.04);
             color: var(--text-secondary);
-            padding: 0.6rem 1.4rem;
+            padding: 0.5rem 1.2rem;
             border-radius: 50px;
             cursor: pointer;
             font-family: var(--font-title);
             font-weight: 600;
-            font-size: 0.88rem;
+            font-size: 0.85rem;
             transition: var(--transition-smooth);
             backdrop-filter: blur(8px);
         }
 
         .filter-btn:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.12);
             color: #ffffff;
-            transform: translateY(-2px);
+            transform: translateY(-1px);
         }
 
         .filter-btn.active {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-color: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.15);
             color: #ffffff;
-            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.25);
         }
 
         /* ----------------------------------
-           7. 精選儲存庫卡片網格 (Rerendering Repos Grid)
+           8. 精選儲存庫卡片網格 (Repos Grid)
            ---------------------------------- */
         .repos-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.8rem;
             width: 100%;
-            min-height: 400px;
+            min-height: 350px;
         }
 
         .repo-card {
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 2.2rem;
+            border-radius: 22px;
+            padding: 2rem;
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             box-shadow: var(--glass-shadow);
@@ -832,10 +1039,9 @@
             justify-content: space-between;
             position: relative;
             overflow: hidden;
-            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
-                        opacity 0.4s ease, 
-                        border-color 0.4s ease, 
-                        box-shadow 0.4s ease;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                        border-color 0.3s ease, 
+                        box-shadow 0.3s ease;
             cursor: pointer;
         }
 
@@ -845,14 +1051,14 @@
             top: 0; left: 0;
             width: 100%; height: 100%;
             background: radial-gradient(
-                800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-                rgba(255, 255, 255, 0.05),
-                transparent 40%
+                400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                rgba(255, 255, 255, 0.04),
+                transparent 45%
             );
             z-index: 0;
             pointer-events: none;
             opacity: 0;
-            transition: opacity 0.5s;
+            transition: opacity 0.4s;
         }
 
         .repo-card:hover::before {
@@ -860,13 +1066,13 @@
         }
 
         .repo-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(99, 102, 241, 0.35);
-            box-shadow: 0 25px 45px rgba(99, 102, 241, 0.15);
+            transform: translateY(-5px);
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.1);
         }
 
         .repo-header {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.25rem;
             position: relative;
             z-index: 1;
         }
@@ -875,37 +1081,37 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1.25rem;
+            margin-bottom: 1rem;
         }
 
         .repo-folder-icon {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             color: var(--secondary);
             transition: var(--transition-smooth);
         }
 
         .repo-card:hover .repo-folder-icon {
             color: var(--accent);
-            transform: scale(1.1) rotate(-5deg);
+            transform: scale(1.08) rotate(-4deg);
         }
 
         .repo-github-link {
             color: var(--text-muted);
-            font-size: 1.35rem;
+            font-size: 1.25rem;
             transition: var(--transition-smooth);
         }
 
         .repo-github-link:hover {
             color: #ffffff;
-            transform: scale(1.2);
+            transform: scale(1.15);
         }
 
         .repo-title {
             font-family: var(--font-title);
-            font-size: 1.5rem;
+            font-size: 1.35rem;
             font-weight: 700;
             color: #ffffff;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.6rem;
             letter-spacing: -0.01em;
             transition: var(--transition-smooth);
         }
@@ -916,15 +1122,15 @@
 
         .repo-desc {
             color: var(--text-secondary);
-            font-size: 0.98rem;
+            font-size: 0.9rem;
             line-height: 1.6;
-            margin-bottom: 1.25rem;
+            margin-bottom: 1.1rem;
             display: -webkit-box;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis;
-            min-height: 4.8rem;
+            min-height: 4.3rem;
         }
 
         /* 儲存庫語言與數據 */
@@ -932,9 +1138,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 1.25rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            font-size: 0.88rem;
+            padding-top: 1.1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            font-size: 0.82rem;
             color: var(--text-muted);
             position: relative;
             z-index: 1;
@@ -943,14 +1149,14 @@
         .repo-lang {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.4rem;
             font-weight: 600;
             color: var(--text-secondary);
         }
 
         .lang-dot {
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
             display: inline-block;
         }
@@ -964,28 +1170,23 @@
 
         .repo-stats-group {
             display: flex;
-            gap: 1.2rem;
+            gap: 1rem;
         }
 
         .repo-stat-item {
             display: flex;
             align-items: center;
-            gap: 0.35rem;
+            gap: 0.3rem;
             transition: var(--transition-smooth);
         }
 
-        .repo-card:hover .repo-stat-item.star-stat {
-            color: #fbbf24;
-        }
-
-        .repo-card:hover .repo-stat-item.fork-stat {
-            color: var(--secondary);
-        }
+        .repo-card:hover .repo-stat-item.star-stat { color: #fbbf24; }
+        .repo-card:hover .repo-stat-item.fork-stat { color: var(--secondary); }
 
         .repo-date {
-            font-size: 0.78rem;
+            font-size: 0.72rem;
             color: var(--text-muted);
-            margin-top: 0.85rem;
+            margin-top: 0.75rem;
             text-align: right;
             position: relative;
             z-index: 1;
@@ -995,32 +1196,31 @@
         /* 當無符合搜尋項目時的顯示 */
         .no-results {
             grid-column: 1 / -1;
-            background: rgba(255, 255, 255, 0.01);
-            border: 1px dashed rgba(255, 255, 255, 0.08);
-            border-radius: 20px;
-            padding: 4rem;
+            background: rgba(255, 255, 255, 0.005);
+            border: 1px dashed rgba(255, 255, 255, 0.06);
+            border-radius: 18px;
+            padding: 3rem;
             text-align: center;
             color: var(--text-muted);
             font-family: var(--font-title);
-            font-size: 1.2rem;
-            font-weight: 500;
+            font-size: 1.1rem;
             display: none;
         }
 
         /* ----------------------------------
-           8. 頁尾設計 (Premium Footer)
+           9. 頁尾設計 (Premium Footer)
            ---------------------------------- */
         footer {
-            margin-top: 8rem;
-            padding: 3rem 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            margin-top: 6rem;
+            padding: 2.5rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
             text-align: center;
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         footer p {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
         }
 
         footer a {
@@ -1032,61 +1232,42 @@
 
         footer a:hover {
             color: #ffffff;
-            text-shadow: 0 0 10px rgba(6, 182, 212, 0.6);
+            text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
         }
 
         /* ----------------------------------
-           9. 響應式微調 (Responsive Design)
+           10. 響應式微調 (Responsive Design)
            ---------------------------------- */
         @media (max-width: 992px) {
             .double-column-section {
                 grid-template-columns: 1fr;
             }
+            .design-style-card {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .style-card-right {
+                border-left: none;
+                border-top: 1px solid rgba(255, 255, 255, 0.05);
+                padding-left: 0;
+                padding-top: 1.5rem;
+            }
         }
 
         @media (max-width: 768px) {
-            .container {
-                padding: 3rem 1.25rem;
-            }
-
-            .profile-card {
-                padding: 2.5rem 1.5rem;
-            }
-
-            .profile-name {
-                font-size: 2.5rem;
-            }
-
-            .profile-stats {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-
-            .repos-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .btn-premium {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .profile-buttons {
-                flex-direction: column;
-                width: 100%;
-            }
+            .container { padding: 2.5rem 1.25rem; }
+            .profile-card { padding: 2rem 1.5rem; }
+            .profile-name { font-size: 2.2rem; }
+            .profile-stats { grid-template-columns: 1fr; gap: 0.8rem; }
+            .repos-grid { grid-template-columns: 1fr; }
+            .btn-premium { width: 100%; justify-content: center; }
+            .profile-buttons { flex-direction: column; width: 100%; }
         }
 
         /* 絲滑淡入動畫 */
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .animate-fade-in {
@@ -1141,7 +1322,7 @@
                         <a href="https://github.com/HuiYi0324" target="_blank" class="btn-premium">
                             <i class="fab fa-github"></i> 探索 GitHub 個人主頁
                         </a>
-                        <a href="https://github.com/HuiYi0324/AgentCoding" target="_blank" class="btn-premium">
+                        <a href="https://github.com/HuiYi0324/AgenticCoding" target="_blank" class="btn-premium">
                             <i class="fas fa-network-wired"></i> 訪問本儲存庫
                         </a>
                     </div>
@@ -1165,10 +1346,10 @@
             </div>
         </header>
 
-        <!-- 雙欄排版：UI-UX Pro Max 認證卡片 + 3D 技術棧磁貼 -->
+        <!-- 雙欄排版：UI-UX Pro Max 介紹 + 3D 技術棧磁貼 -->
         <section class="double-column-section animate-fade-in delay-1">
             
-            <!-- (左欄) UI-UX Pro Max 認證中樞 -->
+            <!-- (左欄) UI-UX Pro Max 簡介 -->
             <div class="skill-hub-card" id="ui-ux-hub-card">
                 <div class="glow-overlay"></div>
                 <div class="badge-premium-ai">
@@ -1200,56 +1381,94 @@
                         <span class="gauge-label">動態流暢</span>
                     </div>
                 </div>
-                
-                <!-- 互動式 CLI 說明 -->
-                <div class="cli-demo" onclick="copyCliCommand()">
-                    <span>
-                        <span class="cli-prompt">$</span><span id="cli-text">python search.py "glassmorphism" -d style</span>
-                    </span>
-                    <i class="far fa-copy cli-copy" id="copy-icon"></i>
-                </div>
             </div>
 
-            <!-- (右欄) 3D 技術棧磁貼 (3D Tilt Stacks) -->
+            <!-- (右欄) 3D 技術棧磁貼 -->
             <div class="tech-stack-section">
                 <h3 class="stack-title">
                     <i class="fas fa-terminal" style="color: var(--secondary);"></i>
                     <span>高階技術棧</span>
                 </h3>
                 <div class="stack-grid">
-                    <!-- Python -->
-                    <div class="stack-item-3d" style="--theme-color-rgb: 53, 114, 165;" data-tilt>
+                    <div class="stack-item-3d" style="--theme-color-rgb: 53, 114, 165;">
                         <i class="fab fa-python stack-icon"></i>
                         <span class="stack-item-name">Python & ML</span>
                     </div>
-                    <!-- PyTorch -->
-                    <div class="stack-item-3d" style="--theme-color-rgb: 238, 76, 44;" data-tilt>
+                    <div class="stack-item-3d" style="--theme-color-rgb: 238, 76, 44;">
                         <i class="fas fa-brain stack-icon"></i>
                         <span class="stack-item-name">PyTorch</span>
                     </div>
-                    <!-- JS -->
-                    <div class="stack-item-3d" style="--theme-color-rgb: 241, 224, 90;" data-tilt>
+                    <div class="stack-item-3d" style="--theme-color-rgb: 241, 224, 90;">
                         <i class="fab fa-js stack-icon"></i>
                         <span class="stack-item-name">JavaScript</span>
                     </div>
-                    <!-- HTML5 -->
-                    <div class="stack-item-3d" style="--theme-color-rgb: 227, 76, 38;" data-tilt>
+                    <div class="stack-item-3d" style="--theme-color-rgb: 227, 76, 38;">
                         <i class="fab fa-html5 stack-icon"></i>
                         <span class="stack-item-name">HTML5 / CSS3</span>
                     </div>
-                    <!-- Agentic -->
-                    <div class="stack-item-3d" style="--theme-color-rgb: 168, 85, 247;" data-tilt>
+                    <div class="stack-item-3d" style="--theme-color-rgb: 168, 85, 247;">
                         <i class="fas fa-robot stack-icon"></i>
                         <span class="stack-item-name">AI Agents</span>
                     </div>
-                    <!-- Git -->
-                    <div class="stack-item-3d" style="--theme-color-rgb: 6, 182, 212;" data-tilt>
+                    <div class="stack-item-3d" style="--theme-color-rgb: 6, 182, 212;">
                         <i class="fas fa-code-branch stack-icon"></i>
                         <span class="stack-item-name">Git Workflows</span>
                     </div>
                 </div>
             </div>
 
+        </section>
+
+        <!-- 亮點中樞：UI-UX Pro Max 互動式設計智慧搜尋引擎 -->
+        <section class="interactive-design-center animate-fade-in delay-2">
+            <div class="glow-overlay"></div>
+            
+            <div class="design-center-header">
+                <div class="design-center-badge">
+                    <i class="fas fa-search-nodes"></i>
+                    <span>UI-UX PRO MAX REAL-TIME ENGINE</span>
+                </div>
+                <h3 class="hub-title" style="margin: 0;">UI/UX 頂級設計智慧搜尋器</h3>
+            </div>
+            
+            <p class="hub-desc" style="margin-bottom: 1.5rem;">
+                這是一個基於 `ui-ux-pro-max-skill` 原生 CSV 資料庫驅動的前端搜尋中樞。您可以輸入各類 UI 設計風格，系統將實時向您呈現其設計變數、AI Prompt、最佳實踐與 CSS 代碼！
+            </p>
+
+            <!-- 搜尋與熱門推薦區 -->
+            <div class="search-box-wrapper" style="margin-bottom: 1rem;">
+                <input type="text" class="search-input" id="design-search-input" placeholder="嘗試輸入風格名稱，例如 glassmorphism, minimalism, neumorphism, brutalism...">
+                <i class="fas fa-terminal search-icon" style="color: var(--accent);"></i>
+            </div>
+            
+            <div class="design-search-suggest">
+                <span class="suggest-label"><i class="fas fa-fire"></i> 熱門查詢：</span>
+                <span class="suggest-tag" onclick="triggerDesignSearch('Glassmorphism')">Glassmorphism</span>
+                <span class="suggest-tag" onclick="triggerDesignSearch('Minimalism')">Minimalism</span>
+                <span class="suggest-tag" onclick="triggerDesignSearch('Neumorphism')">Neumorphism</span>
+                <span class="suggest-tag" onclick="triggerDesignSearch('Brutalism')">Brutalism</span>
+            </div>
+
+            <!-- 搜尋結果展示區 -->
+            <div class="search-results-panel" id="design-results-panel">
+                <!-- 預設顯示初始卡片 -->
+            </div>
+
+            <!-- UX 原則隨機小語 -->
+            <div class="ux-wisdom-panel">
+                <div class="ux-wisdom-header">
+                    <div class="ux-wisdom-title">
+                        <i class="fas fa-circle-exclamation"></i>
+                        <span>UX 金律與反模式防錯智慧</span>
+                    </div>
+                    <button class="ux-wisdom-refresh" onclick="getRandomUxWisdom()">
+                        <i class="fas fa-arrows-rotate"></i> 隨機換一條
+                    </button>
+                </div>
+                <div class="ux-wisdom-body" id="ux-wisdom-content">
+                    載入設計指南智慧中...
+                </div>
+            </div>
         </section>
 
         <!-- 儲存庫介紹與搜尋區塊 -->
@@ -1293,18 +1512,23 @@
             <p>© 2026 HuiYi0324. All rights reserved.</p>
             <p>
                 Powered by <a href="https://github.com/nextlevelbuilder/ui-ux-pro-max-skill" target="_blank">UI-UX Pro Max Design Intelligence</a> 
-                & <a href="https://github.com/HuiYi0324/AgentCoding" target="_blank">Agentic-Coding</a>
+                & <a href="https://github.com/HuiYi0324/AgenticCoding" target="_blank">Agentic-Coding</a>
             </p>
         </footer>
     </div>
 
-    <!-- JS 邏輯區塊：包含打字機、3D Tilt、搜尋過濾與隨動發光 -->
+    <!-- 載入 UI-UX Pro Max 資料庫 -->
+    <script src="src/design_data.js"></script>
+
+    <!-- JS 邏輯區塊：包含打字機、搜尋過濾、隨動發光與 3D Tilt 效果 -->
     <script>
+        // ==================================================================================
         // 1. 內嵌儲存庫清單 JSON 數據 (直讀 repos_list.json)
+        // ==================================================================================
         const reposData = [
             {
                 "name": "Agentic-Coding",
-                "desc": "專注於 Agent 代理人代碼自動化與實踐。結合先進 AI 的自主程式碼生成與自動修復架構，大幅提昇軟體開發流程的智慧化程度。",
+                "desc": "專注於 Agent 代理人代碼自動化與實踐。結合先進 AI 的自主程式碼生成與自動修復架構，大幅提昇軟體開發流程 the 智慧化程度。",
                 "url": "https://github.com/HuiYi0324/Agentic-Coding",
                 "stars": 2,
                 "lang": "JavaScript",
@@ -1358,7 +1582,9 @@
             }
         ];
 
+        // ==================================================================================
         // 2. 多段式自動打字機效果 (Advanced Typewriter)
+        // ==================================================================================
         const typedStrings = [
             "AI & Machine Learning Explorer",
             "Agent Automation Architect",
@@ -1382,7 +1608,6 @@
             let typeSpeed = isDeleting ? 40 : 80;
 
             if (!isDeleting && charIndex === currentString.length) {
-                // 打字完成，暫停
                 typeSpeed = 2000;
                 isDeleting = true;
             } else if (isDeleting && charIndex === 0) {
@@ -1394,182 +1619,364 @@
             setTimeout(type, typeSpeed);
         }
 
-        // 3. 滑鼠隨動聚焦發光 (Mouse Spot Glow)
-        function initMouseGlow(cardEl) {
-            cardEl.addEventListener('mousemove', (e) => {
-                const rect = cardEl.getBoundingClientRect();
+        // ==================================================================================
+        // 3. 滑鼠隨動聚焦流光 (Mouse Spot Glow)
+        // ==================================================================================
+        function setupGlowEffect(element) {
+            if (!element) return;
+            element.addEventListener('mousemove', (e) => {
+                const rect = element.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
-                cardEl.style.setProperty('--mouse-x', `${x}px`);
-                cardEl.style.setProperty('--mouse-y', `${y}px`);
+                element.style.setProperty('--mouse-x', `${x}px`);
+                element.style.setProperty('--mouse-y', `${y}px`);
             });
         }
 
-        // 4. 3D 傾斜磁貼特效 (3D Tilt Effect)
-        function init3DTilt(element) {
-            element.addEventListener('mousemove', (e) => {
-                const rect = element.getBoundingClientRect();
+        // 綁定全域卡片流光
+        setupGlowEffect(document.getElementById('main-profile-card'));
+        setupGlowEffect(document.getElementById('ui-ux-hub-card'));
+        setupGlowEffect(document.querySelector('.interactive-design-center'));
+
+        // ==================================================================================
+        // 4. UI-UX Pro Max 設計智慧搜尋邏輯
+        // ==================================================================================
+        const designSearchInput = document.getElementById('design-search-input');
+        const designResultsPanel = document.getElementById('design-results-panel');
+
+        function triggerDesignSearch(val) {
+            designSearchInput.value = val;
+            performDesignSearch(val);
+        }
+
+        function performDesignSearch(query) {
+            if (!DESIGN_DATA || !DESIGN_DATA.styles) {
+                designResultsPanel.innerHTML = '<div style="color: var(--rose);">⚠️ 無法載入設計系統數據庫。</div>';
+                return;
+            }
+
+            const q = query.trim().toLowerCase();
+            if (!q) {
+                renderDefaultStyle();
+                return;
+            }
+
+            // 搜尋 Style Category 或 Keywords
+            const results = DESIGN_DATA.styles.filter(item => {
+                const category = (item["Style Category"] || "").toLowerCase();
+                const keywords = (item["Keywords"] || "").toLowerCase();
+                return category.includes(q) || keywords.includes(q);
+            });
+
+            if (results.length === 0) {
+                designResultsPanel.innerHTML = `
+                    <div style="text-align: center; padding: 2rem; color: var(--text-muted);">
+                        <i class="fas fa-circle-question" style="font-size: 2rem; margin-bottom: 0.5rem; display: block; color: var(--text-muted);"></i>
+                        未在設計智庫中找到與 "${query}" 匹配的風格，試試輸入熱門選項！
+                    </div>
+                `;
+                return;
+            }
+
+            // 渲染第一個搜尋到的風格卡片
+            renderStyleCard(results[0]);
+        }
+
+        // 輔助函數：解析顏色字串產生預覽泡泡
+        function parseColors(colorString) {
+            if (!colorString) return '';
+            // 例如 "Monochromatic, Black #000000, White #FFFFFF"
+            // 我們使用正則抓取 #HEX
+            const hexRegex = /#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})/g;
+            const matches = colorString.match(hexRegex) || [];
+            
+            return matches.map(hex => `
+                <span class="color-bubble">
+                    <span class="color-dot" style="background-color: ${hex}; box-shadow: 0 0 6px ${hex};"></span>
+                    ${hex}
+                </span>
+            `).join('');
+        }
+
+        function renderStyleCard(style) {
+            const colorBubbles = parseColors(style["Primary Colors"] || style["Secondary Colors"]);
+            
+            designResultsPanel.innerHTML = `
+                <div class="design-style-card">
+                    <div class="style-card-left">
+                        <div class="style-name">
+                            <i class="fas fa-palette"></i>
+                            ${style["Style Category"] || "未命名風格"}
+                        </div>
+                        
+                        <div class="style-meta-item">
+                            <div class="style-meta-label">風格關鍵字 (Keywords)</div>
+                            <div class="style-meta-content">${style["Keywords"] || "無"}</div>
+                        </div>
+
+                        <div class="style-meta-item">
+                            <div class="style-meta-label">配色方案 (Color Palette)</div>
+                            <div class="style-meta-content">
+                                ${style["Primary Colors"] || "無"}
+                                <div class="color-bubble-row">${colorBubbles}</div>
+                            </div>
+                        </div>
+
+                        <div class="style-meta-item">
+                            <div class="style-meta-label">動效與轉場 (Effects & Motion)</div>
+                            <div class="style-meta-content">${style["Effects & Animation"] || "無"}</div>
+                        </div>
+                    </div>
+
+                    <div class="style-card-right">
+                        <div class="style-meta-item">
+                            <div class="style-meta-label">AI 繪圖/設計關鍵字 (AI Prompt Keywords)</div>
+                            <div class="code-snippet-box">
+                                <span class="code-text" id="ai-prompt-text">${style["AI Prompt Keywords"] || "無"}</span>
+                                <button class="code-copy-btn" onclick="copyText('ai-prompt-text', this)" title="複製 AI Prompt">
+                                    <i class="far fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="style-meta-item">
+                            <div class="style-meta-label">CSS 設計變數 (CSS System Variables)</div>
+                            <div class="code-snippet-box">
+                                <span class="code-text" id="css-variables-text">${style["Design System Variables"] || "無"}</span>
+                                <button class="code-copy-btn" onclick="copyText('css-variables-text', this)" title="複製 CSS 變數">
+                                    <i class="far fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="style-meta-item">
+                            <div class="style-meta-label">適用場景 (Best For)</div>
+                            <div style="color: var(--success); font-size: 0.88rem; font-weight: 500;">
+                                <i class="fas fa-circle-check"></i> ${style["Best For"] || "無"}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderDefaultStyle() {
+            if (DESIGN_DATA && DESIGN_DATA.styles && DESIGN_DATA.styles.length > 2) {
+                // 預設渲染 Glassmorphism
+                const defaultStyle = DESIGN_DATA.styles.find(item => (item["Style Category"] || "").includes("Glassmorphism")) || DESIGN_DATA.styles[2];
+                renderStyleCard(defaultStyle);
+            }
+        }
+
+        // ==================================================================================
+        // 5. UX 原則隨機抽卡邏輯
+        // ==================================================================================
+        function getRandomUxWisdom() {
+            if (!DESIGN_DATA || !DESIGN_DATA.ux || DESIGN_DATA.ux.length === 0) {
+                document.getElementById('ux-wisdom-content').innerText = "無法讀取設計智慧指南。";
+                return;
+            }
+            
+            const randIndex = Math.floor(Math.random() * DESIGN_DATA.ux.length);
+            const item = DESIGN_DATA.ux[randIndex];
+            
+            const title = item["Issue"] || item["UX Rule"] || item["Principle"] || "高階體驗指南";
+            const badPattern = item["Don't"] || item["Anti-Pattern"] || "無";
+            const goodPattern = item["Do"] || item["Best Practice"] || item["Correct Pattern"] || "無";
+            const category = item["Category"] || "UX";
+            
+            document.getElementById('ux-wisdom-content').innerHTML = `
+                <div style="margin-bottom: 0.4rem; font-weight: 600; color: #ffffff;">
+                    <span style="background: rgba(245, 158, 11, 0.12); color: var(--warning); padding: 0.15rem 0.5rem; border-radius: 4px; font-size: 0.72rem; margin-right: 0.5rem;">${category}</span>
+                    ${title}
+                </div>
+                <div style="font-size: 0.85rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 0.25rem;">
+                    <div style="color: var(--rose);"><i class="fas fa-circle-xmark"></i> <strong>反模式 (Anti-Pattern):</strong> ${badPattern}</div>
+                    <div style="color: var(--success);"><i class="fas fa-circle-check"></i> <strong>最佳實踐 (Best Practice):</strong> ${goodPattern}</div>
+                </div>
+            `;
+        }
+
+        // ==================================================================================
+        // 6. 通用複製文字工具
+        // ==================================================================================
+        function copyText(elementId, btnElement) {
+            const text = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const icon = btnElement.querySelector('i');
+                icon.className = "fas fa-check";
+                icon.style.color = "var(--success)";
+                setTimeout(() => {
+                    icon.className = "far fa-copy";
+                    icon.style.color = "";
+                }, 1500);
+            }).catch(err => {
+                console.error("無法複製文字: ", err);
+            });
+        }
+
+        // ==================================================================================
+        // 7. GitHub 專案卡片動態渲染與搜尋過濾
+        // ==================================================================================
+        const reposGrid = document.getElementById('repos-grid');
+        const searchInput = document.getElementById('search-input');
+        const filterContainer = document.getElementById('filter-container');
+        const noResultsCard = document.getElementById('no-results-card');
+
+        let currentFilter = 'all';
+        let currentSearchQuery = '';
+
+        function renderRepos() {
+            // 清空舊卡片（保留 no-results）
+            const cards = reposGrid.querySelectorAll('.repo-card');
+            cards.forEach(card => card.remove());
+
+            // 進行過濾
+            const filteredData = reposData.filter(repo => {
+                // 語言篩選
+                const langMatch = currentFilter === 'all' || 
+                                 (currentFilter === 'unknown' && repo.lang === 'unknown') ||
+                                 (repo.lang === currentFilter);
+                
+                // 搜尋詞篩選
+                const searchMatch = !currentSearchQuery ||
+                                    repo.name.toLowerCase().includes(currentSearchQuery) ||
+                                    (repo.desc && repo.desc.toLowerCase().includes(currentSearchQuery)) ||
+                                    (repo.lang && repo.lang.toLowerCase().includes(currentSearchQuery));
+                
+                return langMatch && searchMatch;
+            });
+
+            if (filteredData.length === 0) {
+                noResultsCard.style.display = 'block';
+                return;
+            }
+            noResultsCard.style.display = 'none';
+
+            // 渲染新卡片
+            filteredData.forEach(repo => {
+                const card = document.createElement('div');
+                card.className = 'repo-card';
+                
+                const langClass = `lang-${(repo.lang || 'unknown').toLowerCase().replace(' ', '-')}`;
+                const displayLang = repo.lang === 'unknown' ? '無指定語言' : repo.lang;
+
+                card.innerHTML = `
+                    <div class="repo-header">
+                        <div class="repo-icon-row">
+                            <i class="far fa-folder-open repo-folder-icon"></i>
+                            <a href="${repo.url}" target="_blank" class="repo-github-link" title="前往 GitHub 倉庫">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                        <h4 class="repo-title">${repo.name}</h4>
+                        <p class="repo-desc">${repo.desc || '暫無專案描述。'}</p>
+                    </div>
+                    <div>
+                        <div class="repo-footer">
+                            <span class="repo-lang">
+                                <span class="lang-dot ${langClass}"></span>
+                                ${displayLang}
+                            </span>
+                            <div class="repo-stats-group">
+                                <span class="repo-stat-item star-stat">
+                                    <i class="far fa-star"></i> ${repo.stars}
+                                </span>
+                                <span class="repo-stat-item fork-stat">
+                                    <i class="fas fa-code-branch"></i> ${repo.forks}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="repo-date">最後更新: ${repo.updated}</div>
+                    </div>
+                `;
+
+                // 點擊卡片開啟 GitHub
+                card.addEventListener('click', (e) => {
+                    // 若是點擊了 GitHub 圖標，不重複觸發
+                    if (e.target.closest('.repo-github-link')) return;
+                    window.open(repo.url, '_blank');
+                });
+
+                // 設定滑鼠發光層
+                setupGlowEffect(card);
+
+                // 設定 3D Tilt 效果
+                setupTiltEffect(card);
+
+                reposGrid.appendChild(card);
+            });
+        }
+
+        // ==================================================================================
+        // 8. 炫酷卡片 3D 傾斜效果 (3D Tilt)
+        // ==================================================================================
+        function setupTiltEffect(card) {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
                 
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
                 
-                // 限制偏轉角度最大在 12 度以內，保持高雅
-                const rotateX = ((centerY - y) / centerY) * 12;
-                const rotateY = ((x - centerX) / centerX) * 12;
+                // 計算旋轉角度 (最大約為 10 度)
+                const rotateX = ((centerY - y) / centerY) * 8;
+                const rotateY = ((x - centerX) / centerX) * 8;
                 
-                element.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-            });
-            
-            element.addEventListener('mouseleave', () => {
-                element.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-            });
-        }
-
-        // 5. 儲存庫動態卡片渲染與搜尋篩選 (Rerender & Live Filter)
-        const reposGrid = document.getElementById('repos-grid');
-        const searchInput = document.getElementById('search-input');
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const noResultsCard = document.getElementById('no-results-card');
-
-        let activeFilter = 'all';
-        let searchQuery = '';
-
-        function getLangClass(lang) {
-            if (!lang || lang === 'unknown') return 'lang-unknown';
-            const dict = {
-                'JavaScript': 'lang-javascript',
-                'HTML': 'lang-html',
-                'CSS': 'lang-css',
-                'Jupyter Notebook': 'lang-jupyter',
-                'Python': 'lang-python'
-            };
-            return dict[lang] || 'lang-unknown';
-        }
-
-        function getLangDisplayName(lang) {
-            if (!lang || lang === 'unknown') return '無指定語言';
-            return lang;
-        }
-
-        function renderRepos() {
-            // 清理除了 no-results 外的舊卡片
-            const cards = reposGrid.querySelectorAll('.repo-card');
-            cards.forEach(c => c.remove());
-
-            // 搜尋與篩選邏輯
-            const filtered = reposData.filter(repo => {
-                const matchLang = activeFilter === 'all' || repo.lang === activeFilter;
-                const matchSearch = repo.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                                    (repo.desc && repo.desc.toLowerCase().includes(searchQuery.toLowerCase()));
-                return matchLang && matchSearch;
+                card.style.transform = `perspective(1000px) translateY(-5px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
             });
 
-            if (filtered.length === 0) {
-                noResultsCard.style.display = 'block';
-            } else {
-                noResultsCard.style.display = 'none';
-                
-                filtered.forEach((repo, index) => {
-                    const card = document.createElement('div');
-                    card.className = 'repo-card';
-                    card.style.opacity = '0';
-                    card.style.transform = 'scale(0.95) translateY(10px)';
-                    
-                    // 設定滑鼠移動發光
-                    initMouseGlow(card);
-                    
-                    card.setAttribute('onclick', `window.open('${repo.url}', '_blank')`);
-                    
-                    card.innerHTML = `
-                        <div class="repo-header">
-                            <div class="repo-icon-row">
-                                <i class="far fa-folder repo-folder-icon"></i>
-                                <a href="${repo.url}" target="_blank" class="repo-github-link" onclick="event.stopPropagation()">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                            </div>
-                            <h3 class="repo-title">${repo.name}</h3>
-                            <p class="repo-desc">${repo.desc || '暫無描述。這是一個精心開發的高科技開源儲存庫，點擊訪問 GitHub 獲取詳情。'}</p>
-                        </div>
-                        <div>
-                            <div class="repo-footer">
-                                <span class="repo-lang">
-                                    <span class="lang-dot ${getLangClass(repo.lang)}"></span>
-                                    ${getLangDisplayName(repo.lang)}
-                                </span>
-                                <div class="repo-stats-group">
-                                    <span class="repo-stat-item star-stat">
-                                        <i class="far fa-star"></i> ${repo.stars}
-                                    </span>
-                                    <span class="repo-stat-item fork-stat">
-                                        <i class="fas fa-code-fork"></i> ${repo.forks}
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="repo-date">更新於: ${repo.updated}</div>
-                        </div>
-                    `;
-                    
-                    reposGrid.insertBefore(card, noResultsCard);
-                    
-                    // 流暢 FLIP 漸顯效果
-                    setTimeout(() => {
-                        card.style.opacity = '1';
-                        card.style.transform = 'scale(1) translateY(0)';
-                    }, index * 60);
-                });
-            }
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
         }
 
-        // 搜尋事件
+        // 綁定技術棧卡片的 3D Tilt
+        document.querySelectorAll('.stack-item-3d').forEach(item => {
+            setupGlowEffect(item);
+            setupTiltEffect(item);
+        });
+
+        // ==================================================================================
+        // 9. 事件監聽設定與初始載入
+        // ==================================================================================
+        // 專案關鍵字搜尋監聽
         searchInput.addEventListener('input', (e) => {
-            searchQuery = e.target.value;
+            currentSearchQuery = e.target.value.toLowerCase().trim();
             renderRepos();
         });
 
-        // 篩選事件
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                activeFilter = btn.getAttribute('data-filter');
-                renderRepos();
-            });
+        // 專案語言分類標籤點擊監聽
+        filterContainer.addEventListener('click', (e) => {
+            const btn = e.target.closest('.filter-btn');
+            if (!btn) return;
+
+            filterContainer.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            currentFilter = btn.getAttribute('data-filter');
+            renderRepos();
         });
 
-        // 6. 點擊複製 CLI 指令
-        function copyCliCommand() {
-            const commandText = document.getElementById('cli-text').innerText;
-            const copyIcon = document.getElementById('copy-icon');
-            
-            navigator.clipboard.writeText(commandText).then(() => {
-                copyIcon.className = "fas fa-check";
-                copyIcon.style.color = "var(--success)";
-                
-                setTimeout(() => {
-                    copyIcon.className = "far fa-copy";
-                    copyIcon.style.color = "var(--text-muted)";
-                }, 2000);
-            });
-        }
+        // UI/UX 設計中樞搜尋監聽
+        designSearchInput.addEventListener('input', (e) => {
+            performDesignSearch(e.target.value);
+        });
 
-        // 7. 初始化加載
-        document.addEventListener('DOMContentLoaded', () => {
+        // 頁面加載完成初始化
+        window.addEventListener('DOMContentLoaded', () => {
             // 啟動打字機
-            setTimeout(type, 1000);
-            
-            // 初始化個人卡片和 AI 認證卡片的隨動發光
-            initMouseGlow(document.getElementById('main-profile-card'));
-            initMouseGlow(document.getElementById('ui-ux-hub-card'));
-            
-            // 初始化 3D 傾斜技術棧磁貼
-            const tiltItems = document.querySelectorAll('[data-tilt]');
-            tiltItems.forEach(item => init3DTilt(item));
-            
-            // 渲染儲存庫卡片
+            setTimeout(type, 500);
+
+            // 渲染專案卡片
             renderRepos();
+
+            // 載入 UI/UX 設計中樞的預設內容 (Glassmorphism)
+            renderDefaultStyle();
+
+            // 載入第一條隨機 UX 指南
+            getRandomUxWisdom();
         });
     </script>
 </body>
